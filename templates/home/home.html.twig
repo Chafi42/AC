@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" />
+{% endblock %}
+
+
+
+{% block body %}
+
+<main>
+
+<section id="presentation">
+    <h2 id="title-presentation">Conduis ton <span>rêve</span> avec AutoCars</h2>
+    <p id="text-presentation">Découvrez votre 
+    <span>prochaine aventure</span> sur quatre roues. Notre sélection de voitures offre 
+    <span>qualité, fiabilité et performance</span>.
+    </p>
+</section>
+
+ {# {% for car in cars %} 
+    <div class="col">
+        <div class="card">
+            <ul> #}
+            {# <img src="{{ asset('assets/images/' . $car->getPicture()) }}" class="card-img-top" alt="..."> #}
+            {# <div class="card-body">
+                <h5 class="card-title">{{ car.getBrand() }}</h5>
+                <p class="card-text">{{car.getModel() }}</p>
+                <a onclick="showModal({{ car.getId() }})" href="#" class="btn btn-primary">Voir plus</a>
+
+                <p class="price">{{ car.getPrice() }}</p>
+            </div>
+        </div>
+    </div>   #}
+{# {% endfor %}  #}
+
+<section id="selectCar">
+
+ <div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-12">
+
+    <div id="car1" class="row-wrap flex-column  justify-content-center align-items-center" style="height: 200px;">
+    <a id="type" class="btn btn-primary mb-2">Type<i class=" triangle fa-solid fa-caret-down"></i></a>
+    <a id="marque" class="btn btn-primary mb-2">Marque<i class=" triangle fa-solid fa-caret-down"></i></a>
+    <a id="model" class="btn btn-primary mb-2">Model<i class=" triangle fa-solid fa-caret-down"></i></a>
+    <a id="annee" class="btn btn-primary mb-2">Annee<i class=" triangle fa-solid fa-caret-down"></i></a> 
+    </div>
+    </div>
+
+    <div class="col-lg-6 col-12 selector-grid">
+    <div id="car2" class="row-wrap flex-column  justify-content-center align-items-center" style="height: 200px;">
+    <a id="km" class="btn btn-primary mb-2" >Kilométrage<i class=" triangle fa-solid fa-caret-down"></i></a>
+    <a id="carburant" class="btn btn-primary mb-2">Carburant<i class=" triangle fa-solid fa-caret-down"></i></a>
+    <a id="transmission" class="btn btn-primary mb-2">Transmission<i class=" triangle fa-solid fa-caret-down"></i></a>
+    <a id="prix" href="#" class="btn btn-primary">Prix<i class=" triangle fa-solid fa-caret-down"></i></a> 
+    </div>
+      </div>
+  </div>
+</div>
+
+    <div>
+    
+    
+    </div>
+  
+  
+
+    {# <div id="form"> #}
+    
+    {# <form action="#">
+        <button type="submit" id="searchCars">Rechercher</button>
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </form> #}
+    
+    {# </div> #}
+
+    </div>
+</section>
+
+</main>
+
+{% endblock %}
+

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CarsController!{% endblock %}
+
+{% block body %}
+
+    <h1>Hello CarsController!</h1>
+
+    <ul>
+        {% for car in cars %}
+            <li>{{ car.make }} - {{ car.model }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
