@@ -5,6 +5,12 @@
 {% block body %}
     <h1>Cars index</h1>
 
+    {% for message in app.flashes('danger') %}
+      <div class="flash-notice">
+        {{ message }}
+      </div>
+    {% endfor %}
+
     <table class="table">
         <thead>
             <tr>
@@ -35,7 +41,11 @@
                 <td>{{ car.gearBox }}</td>
                 <td>{{ car.price }}</td>
                 <td>{{ car.description }}</td>
-                <td>{{ car.picture }}</td>
+                <td>
+                       {% for picture in car.pictures %}
+    <img src={{asset('assets/img/cars-users/' ~ picture.name)}} alt="Picture for {{ car.model }}"/>
+{% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('app_cars_show', {'id': car.id}) }}">show</a>
                     <a href="{{ path('app_cars_edit', {'id': car.id}) }}">edit</a>

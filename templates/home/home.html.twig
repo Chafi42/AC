@@ -1,86 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}
+  Home
+{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 {% endblock %}
 
-
+{% block javascripts %}
+  <script src="{{ asset('assets/js/home.js') }}"></script>
+{% endblock %}
 
 {% block body %}
-
-<main>
-
-<section id="presentation">
+  <section id="presentation">
     <h2 id="title-presentation">Conduis ton <span>rêve</span> avec AutoCars</h2>
-    <p id="text-presentation">Découvrez votre 
-    <span>prochaine aventure</span> sur quatre roues. Notre sélection de voitures offre 
-    <span>qualité, fiabilité et performance</span>.
+    <p id="text-presentation">
+      Découvrez votre
+      <span>prochaine aventure</span> sur quatre roues. Notre sélection de voitures offre
+      <span>qualité, fiabilité et performance</span>.
     </p>
-</section>
+  </section>
 
- {# {% for car in cars %} 
-    <div class="col">
-        <div class="card">
-            <ul> #}
-            {# <img src="{{ asset('assets/images/' . $car->getPicture()) }}" class="card-img-top" alt="..."> #}
-            {# <div class="card-body">
-                <h5 class="card-title">{{ car.getBrand() }}</h5>
-                <p class="card-text">{{car.getModel() }}</p>
-                <a onclick="showModal({{ car.getId() }})" href="#" class="btn btn-primary">Voir plus</a>
-
-                <p class="price">{{ car.getPrice() }}</p>
-            </div>
+  <section id="searchCars">
+    <h2 class="text-center">Recherche de véhicule stylé</h2>
+    <form action="{{ path('app_cars_achat') }}" method="POST">
+      <div class="d-flex justify-content-center">
+        <div class="form-group">
+          <input type="text" id="typeBrandModelInput" name="typeBrandModel" placeholder="Type, marque, modèle" required="true" />
         </div>
-    </div>   #}
-{# {% endfor %}  #}
-
-<section id="selectCar">
-
- <div class="container">
-  <div class="row">
-    <div class="col-lg-6 col-12">
-
-    <div id="car1" class="row-wrap flex-column  justify-content-center align-items-center" style="height: 200px;">
-    <a id="type" class="btn btn-primary mb-2">Type<i class=" triangle fa-solid fa-caret-down"></i></a>
-    <a id="marque" class="btn btn-primary mb-2">Marque<i class=" triangle fa-solid fa-caret-down"></i></a>
-    <a id="model" class="btn btn-primary mb-2">Model<i class=" triangle fa-solid fa-caret-down"></i></a>
-    <a id="annee" class="btn btn-primary mb-2">Annee<i class=" triangle fa-solid fa-caret-down"></i></a> 
-    </div>
-    </div>
-
-    <div class="col-lg-6 col-12 selector-grid">
-    <div id="car2" class="row-wrap flex-column  justify-content-center align-items-center" style="height: 200px;">
-    <a id="km" class="btn btn-primary mb-2" >Kilométrage<i class=" triangle fa-solid fa-caret-down"></i></a>
-    <a id="carburant" class="btn btn-primary mb-2">Carburant<i class=" triangle fa-solid fa-caret-down"></i></a>
-    <a id="transmission" class="btn btn-primary mb-2">Transmission<i class=" triangle fa-solid fa-caret-down"></i></a>
-    <a id="prix" href="#" class="btn btn-primary">Prix<i class=" triangle fa-solid fa-caret-down"></i></a> 
-    </div>
+        <div class="form-group">
+          <input type="number" id="kmMaxInput" name="kmMax" placeholder="KM max" />
+        </div>
+        <div class="form-group">
+          <input type="number" id="priceInput" name="price" placeholder="Prix maximum" />
+        </div>
       </div>
-  </div>
-</div>
 
-    <div>
-    
-    
+      <button href="{{ path('app_cars_achat') }}" value="" id="searchButton" type="submit">
+        Recherche
+        <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
+      </button>
+    </form>
+  </section>
+
+  <section id="typeCars">
+    <h2 class="text-center">Nos voitures</h2>
+    <div class="w-100 ">
+      <div class="card col-12 d-flex flex-row justify-content-around ms-5 me-5">
+
+          <img src="{{ asset('assets/img/cars/toutes.png') }}" class="h-100 w-25" alt="Toutes" />
+          <img src="{{ asset('assets/img/cars/4x4-removebg-preview.png') }}" class="w-25 h-50" alt="4x4 & SUV" />
+          <img src="{{ asset('assets/img/cars/citadine-removebg-preview.png') }}" class="w-25" alt="Citadine" />
+          <img src="{{ asset('assets/img/cars/berline-removebg-preview.png') }}" class="w-25 h-50" alt="Berline" />
+      </div>
+
+      {# <div class="card">
+                <img src="{{ asset('assets/img/cars/toutes.png') }}" class="card-img-top" alt="Toutes">
+                <img src="{{ asset('assets/img/cars/4x4-removebg-preview.png') }}" class="card-img-top" alt="4x4 & SUV">
+                <img src="{{ asset('assets/img/cars/citadine-removebg-preview.png') }}" class="card-img-top" alt="Citadine">
+                <img src="{{ asset('assets/img/cars/berline-removebg-preview.png') }}" class="card-img-top" alt="Berline">
+              </div> #}
     </div>
-  
-  
-
-    {# <div id="form"> #}
-    
-    {# <form action="#">
-        <button type="submit" id="searchCars">Rechercher</button>
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </form> #}
-    
-    {# </div> #}
-
-    </div>
-</section>
-
-</main>
-
+  </section>
 {% endblock %}
-

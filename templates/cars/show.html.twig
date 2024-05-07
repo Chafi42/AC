@@ -1,62 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cars{% endblock %}
+{% block title %}
+  Cars
+{% endblock %}
 
 {% block body %}
-    <h1>Cars</h1>
+  <h1>Cars</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ car.id }}</td>
-            </tr>
-            <tr>
-                <th>Brand</th>
-                <td>{{ car.brand }}</td>
-            </tr>
-            <tr>
-                <th>Model</th>
-                <td>{{ car.model }}</td>
-            </tr>
-            <tr>
-                <th>Year</th>
-                <td>{{ car.year }}</td>
-            </tr>
-            <tr>
-                <th>Mileage</th>
-                <td>{{ car.mileage }}</td>
-            </tr>
-            <tr>
-                <th>Fuel</th>
-                <td>{{ car.fuel }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ car.type }}</td>
-            </tr>
-            <tr>
-                <th>GearBox</th>
-                <td>{{ car.gearBox }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ car.price }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ car.description }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ car.picture }}</td>
-            </tr>
-        </tbody>
-    </table>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Id</th>
+        <td>{{ car.id }}</td>
+      </tr>
+      <tr>
+        <th>Brand</th>
+        <td>{{ car.brand }}</td>
+      </tr>
+      <tr>
+        <th>Model</th>
+        <td>{{ car.model }}</td>
+      </tr>
+      <tr>
+        <th>Year</th>
+        <td>{{ car.year }}</td>
+      </tr>
+      <tr>
+        <th>Mileage</th>
+        <td>{{ car.mileage }}</td>
+      </tr>
+      <tr>
+        <th>Fuel</th>
+        <td>{{ car.fuel }}</td>
+      </tr>
+      <tr>
+        <th>Type</th>
+        <td>{{ car.type }}</td>
+      </tr>
+      <tr>
+        <th>GearBox</th>
+        <td>{{ car.gearBox }}</td>
+      </tr>
+      <tr>
+        <th>Price</th>
+        <td>{{ car.price }}</td>
+      </tr>
+      <tr>
+        <th>Description</th>
+        <td>{{ car.description }}</td>
+      </tr>
+      <tr>
+        <th>Picture</th>
+        {% for picture in car.pictures %}
+    <img src={{asset('assets/img/cars-users' ~ picture.name)}} alt="Picture for {{ car.model }}"/>
+{% endfor %}
+      </tr>
+    </tbody>
+  </table>
 
-    <a href="{{ path('app_cars_index') }}">back to list</a>
+  <a href="{{ path('app_cars_achat') }}">back to list</a>
 
-    <a href="{{ path('app_cars_edit', {'id': car.id}) }}">edit</a>
+  <a href="{{ path('app_cars_edit', { id: car.id }) }}">edit</a>
 
-    {{ include('cars/_delete_form.html.twig') }}
+  {{ include('cars/_delete_form.html.twig') }}
 {% endblock %}
