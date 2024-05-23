@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cars index
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/achat.css') }}">
+{% endblock %}
+{% block body %}
+
+
+
+		<div id="pictureHeader" class="w-100"> <h1 class="text-white d-flex justify-content-center align-items-center">
+			ACHAT
+		</h1>
+	</div>
+
+	<div class="d-flex">
+		<section id="containerSearchOption">
+
+			<div class="form">
+				<div class="option">
+					<div class="lateral">
+						<input type="text" id="type" name="type" placeholder="Type"/>
+						<input type="text" id="brand" name="brand" placeholder="Marque"/>
+						<input type="text" id="model" name="model" placeholder="Modèle"/>
+						<input type="number" id="annee" placeholder="Année"/>
+						<input type="number" id="kmMax" placeholder="Km"/>
+						<input type="number" id="price" name="price" placeholder="Prix"/>
+					</div>
+					<h4 class="text-center py-3">Carburant</h4>
+					<div class="d-flex">
+						<input type="checkbox" id="fuelDiesel" name="fuelDiesel"/>
+						<label class="ps-3">Diesel</label>
+					</div>
+					<div class="d-flex">
+						<input type="checkbox" id="fuelEssence" name="fuelEssence"/>
+						<label class="ps-3">Essence</label>
+					</div>
+					<div class="d-flex">
+						<input type="checkbox" id="fuelGPL" name="fuelGPL"/>
+						<label class="ps-3">GPL</label>
+					</div>
+					<h4 class="text-center py-3">Boite à vitesse</h4>
+					<div class="d-flex">
+						<input type="checkbox" id="manualGearBox" name="manualGearBox"/>
+						<label class="ps-3">Manuelle</label>
+					</div>
+					<div class="d-flex">
+						<input type="checkbox" id="gearBoxAutomatique" name="automaticGearBox"/>
+						<label class="ps-3">Automatique</label>
+					</div>
+					<button onclick="filterCars()" id="searchButtonCar" type="submit">
+						Recherche
+					</button>
+				</div>
+			</div>
+		</section>
+
+
+		<section id="cardsCars">
+
+			<p class="p-3 fs-3">{{ cars|length }}
+				annonces</p>
+
+			<div class="container-card">
+
+				{% for car in cars %}
+					<div class="card">
+						<img src={{asset('assets/img/cars-users/' ~ car.pictures[0].name)}} class="card-img-top" alt="Picture for {{ car.model }}"/>
+						<div class="card-body">
+
+
+							<div class="characteristic">
+								<div class="d-flex flex-column">
+									<p class="card-type">{{ car.type }}</p>
+									<p class="card-brand">{{ car.brand }}</p>
+									<p class="card-model">{{ car.model }}</p>
+								</div>
+
+								<div class="d-flex flex-column">
+									<p class="card-year">{{ car.year }}</p>
+									<p class="card-mileage">{{ car.mileage }}</p>
+									<p class="card-fuel">{{ car.fuel }}</p>
+								</div>
+							</div>
+
+
+							<p class="card-price text-center">{{ car.price }}€</p>
+
+
+							<a href="{{ path('app_cars_show', {'id': car.id}) }}" class="d-flex justify-content-center btn btn-primary">Voir</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+
+		</section>
+	</div>
+
+	{% block javascripts %}
+
+	
+
+	{% endblock %}
+{% endblock %}

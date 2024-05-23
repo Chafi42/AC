@@ -13,7 +13,6 @@ class HomeController extends AbstractController
 {
     #[Route('/', name: 'app')]
     public function index(CarsRepository $carsRepository, PictureRepository $pictureRepository ): Response
-
     {
         $cars = $carsRepository->findAll();
         $picture = $pictureRepository->findAll();

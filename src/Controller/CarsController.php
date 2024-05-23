@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Entity\Cars;
 use App\Entity\Picture;
 use App\Form\CarsType;
 use App\Repository\CarsRepository;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -14,30 +16,35 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+
 class CarsController extends AbstractController
 {
-    #[Route('/achat', name: 'app_cars_achat', methods: ['GET', 'POST'])]
-    public function index(Request $request, CarsRepository $carsRepository): Response
+    #[Route('/achat', name: 'app_cars_achat', methods: ['GET'])]
+    public function index(CarsRepository $carsRepository, Request $request): Response
     {
-        if($request->isMethod('POST')) {
-            $options = $request->request->all()['typeBrandModel'];
-            if($options) {
-                $cars = $carsRepository->findBy(['brand' => $options]);
-            }
-
-            if(empty($cars)) {
-                    $this->addFlash('danger', 'Aucun résultat trouvé pour cette recherche.');
-            }
+        $searchForm = $this->createFormBuilder()
+            ->add('search', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Search for cars...'
+                ]
+            ])
+            ->getForm();
+        
+        $searchForm->handleRequest($request);
+        
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $searchData = $searchForm->getData();
+            $searchTerm = $searchData['search'];
             
+            $cars = $carsRepository->findBySearchTerm($searchTerm);
         } else {
             $cars = $carsRepository->findAll();
         }
         
-
-
-
-        return $this->render('cars/index.html.twig', [
+        return $this->render('cars/achat.html.twig', [
             'cars' => $cars,
+            'searchForm' => $searchForm->createView()
         ]);
     }
 
@@ -87,8 +94,8 @@ class CarsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_cars_show', methods: ['GET'])]
-    public function show(Cars $car): Response
+    #[Route('/cars/{id}', name: 'car_show', requirements: ['id' => '\d+'])]
+    public function show(Cars $car)
     {
         return $this->render('cars/show.html.twig', [
             'car' => $car,
@@ -104,7 +111,7 @@ class CarsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_cars_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_cars_achat', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('cars/edit.html.twig', [
@@ -121,6 +128,6 @@ class CarsController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_cars_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_cars_achat', [], Response::HTTP_SEE_OTHER);
     }
 }

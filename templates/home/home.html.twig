@@ -1,67 +1,251 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Home
+	Home
 {% endblock %}
 
 {% block stylesheets %}
-  <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" />
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-{% endblock %}
+	<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}"/>
+	<link rel="stylesheet" href="{{ asset('assets/css/swiper-bundle.min.css') }}"/>
 
-{% block javascripts %}
-  <script src="{{ asset('assets/js/home.js') }}"></script>
 {% endblock %}
 
 {% block body %}
-  <section id="presentation">
-    <h2 id="title-presentation">Conduis ton <span>rêve</span> avec AutoCars</h2>
-    <p id="text-presentation">
-      Découvrez votre
-      <span>prochaine aventure</span> sur quatre roues. Notre sélection de voitures offre
-      <span>qualité, fiabilité et performance</span>.
-    </p>
-  </section>
 
-  <section id="searchCars">
-    <h2 class="text-center">Recherche de véhicule stylé</h2>
-    <form action="{{ path('app_cars_achat') }}" method="POST">
-      <div class="d-flex justify-content-center">
-        <div class="form-group">
-          <input type="text" id="typeBrandModelInput" name="typeBrandModel" placeholder="Type, marque, modèle" required="true" />
-        </div>
-        <div class="form-group">
-          <input type="number" id="kmMaxInput" name="kmMax" placeholder="KM max" />
-        </div>
-        <div class="form-group">
-          <input type="number" id="priceInput" name="price" placeholder="Prix maximum" />
-        </div>
-      </div>
 
-      <button href="{{ path('app_cars_achat') }}" value="" id="searchButton" type="submit">
-        Recherche
-        <i class="fa-solid fa-magnifying-glass" style="color: #ffffff;"></i>
-      </button>
-    </form>
-  </section>
+	<section id="searchCars">
+		<h2 class="text-center">Recherche de véhicule stylé</h2>
+		<form action="{{ path('app_cars_achat') }}" method="POST">
+			<div class="d-flex justify-content-center">
+				<div class="form-group">
+					<input type="text" id="typeBrandModelInput" name="typeBrandModel" placeholder="Type, marque, modèle"/>
+				</div>
+				<div class="form-group">
+					<input type="number" id="kmMaxInput" name="km" placeholder="KM max"/>
+				</div>
+				<div class="form-group">
+					<input type="number" id="priceInput" name="price" placeholder="Prix maximum"/>
+				</div>
+			</div>
 
-  <section id="typeCars">
-    <h2 class="text-center">Nos voitures</h2>
-    <div class="w-100 ">
-      <div class="card col-12 d-flex flex-row justify-content-around ms-5 me-5">
+			<button class="w-100" href="{{ path('app_cars_achat') }}" id="searchButton" type="search">
+				Recherche
+				<i class="fa-solid fa-magnifying-glass p-1" style="color: #ffffff;"></i>
+			</button>
+		</form>
+	</section>
 
-          <img src="{{ asset('assets/img/cars/toutes.png') }}" class="h-100 w-25" alt="Toutes" />
-          <img src="{{ asset('assets/img/cars/4x4-removebg-preview.png') }}" class="w-25 h-50" alt="4x4 & SUV" />
-          <img src="{{ asset('assets/img/cars/citadine-removebg-preview.png') }}" class="w-25" alt="Citadine" />
-          <img src="{{ asset('assets/img/cars/berline-removebg-preview.png') }}" class="w-25 h-50" alt="Berline" />
-      </div>
+	<section id="typeCars">
+		<h2 class="text-center">Type de véhicules</h2>
 
-      {# <div class="card">
-                <img src="{{ asset('assets/img/cars/toutes.png') }}" class="card-img-top" alt="Toutes">
-                <img src="{{ asset('assets/img/cars/4x4-removebg-preview.png') }}" class="card-img-top" alt="4x4 & SUV">
-                <img src="{{ asset('assets/img/cars/citadine-removebg-preview.png') }}" class="card-img-top" alt="Citadine">
-                <img src="{{ asset('assets/img/cars/berline-removebg-preview.png') }}" class="card-img-top" alt="Berline">
-              </div> #}
-    </div>
-  </section>
-{% endblock %}
+		<div class="card col-12 d-flex flex-row">
+
+			<div class="card-body d-flex flex-column justify-content-center align-items-center">
+				<img src="{{ asset('assets/img/cars/toutes.png') }}" class="h-75 w-75 " alt="Toutes"/>
+				<a href={{ path('app_cars_achat')}}>Toutes
+				</a>
+			</div>
+
+			<div class="card-body d-flex flex-column justify-content-center align-items-center">
+				<img src="{{ asset('assets/img/cars/4x4-removebg-preview.png') }}" class="h-75 w-75" alt="4x4 & SUV"/>
+				<a href={{ path('app_cars_achat')}}>4x4 & SUV
+				</a>
+			</div>
+
+			<div class="card-body d-flex flex-column justify-content-center align-items-center">
+				<img src="{{ asset('assets/img/cars/citadine-removebg-preview.png')}}" class="h-75 w-75  " alt="Citadine"/>
+				<a href={{ path('app_cars_achat')}} class="pt-3">Citadine
+				</a>
+			</div>
+
+			<div class="card-body d-flex flex-column justify-content-center align-items-center">
+				<img src="{{ asset('assets/img/cars/berline-removebg-preview.png') }}" class="h-75 w-75 " alt="Berline"/>
+				<a href={{ path('app_cars_achat')}}>Berline
+				</a>
+			</div>
+		</div>
+
+		{# ---------------------------------------------- #}
+
+		<div class="card col-12 d-flex flex-row">
+
+			<div class="card-body col-md-3 d-flex flex-column justify-content-center align-items-center">
+				<img src="{{ asset('assets/img/cars/monospace-removebg-preview.png') }}" class="h-75 w-75 " alt="Monospace"/>
+				<a href={{ path('app_cars_achat')}}>Monospace
+				</a>
+			</div>
+
+			<div class="card-body col-md-3 d-flex flex-column justify-content-center align-items-center">
+				<img src="{{ asset('assets/img/cars/break-removebg-preview.png') }}" class="h-75 w-75" alt="Break"/>
+				<a href={{ path('app_cars_achat')}}>Break
+				</a>
+			</div>
+
+			<div class="card-body col-md-3 d-flex flex-column justify-content-center align-items-center">
+				<img src="{{ asset('assets/img/cars/Toyota-Yaris-Hybrid-2016-removebg-preview.png')}}" class="h-75 w-75  " alt="Hybride"/>
+				<a href={{ path('app_cars_achat')}} class="pt-3">Hybride
+				</a>
+			</div>
+
+			<div class="card-body col-md-3 d-flex flex-column justify-content-center align-items-center">
+				<img src="{{ asset('assets/img/cars/electrique-removebg-preview.png') }}" class="h-75 w-75 " alt="Electrique"/>
+				<a href={{ path('app_cars_achat')}}>Electrique
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<section id="smoothSale" class="py-5">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-6 mb-4 mb-md-0">
+					<img src="{{ asset('assets/img/comment-ça-marche/estimerMaintenant/agence.png') }}" class="img-fluid" alt="Smooth Sale"/>
+				</div>
+
+				<div class="col-md-6">
+					<h2 class="text-center mb-4">Optez pour une vente fluide et rapide sans complications inutiles !</h2>
+
+					<p class="mb-4">
+						Confiez votre ancienne voiture à des experts qui sauront en prendre soin comme il se doit.
+																																										          Expertise en agence ou via l’application
+																																										          Estimation du véhicule en quelques secondes
+																																										          Virement en 24h sur votre compte bancaire
+					</p>
+
+					<button class="btn btn-primary">Estimer maintenant</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="searchCarsLink">
+		<h2 class="text-center">Vous recherchez la voiture parfaite ? Nous l'avons pour vous !</h2>
+
+		<div class="d-flex justify-content-center">
+			<a href="{{ path('app_cars_achat')}}" class="btn btn-primary">Cliquez ici !</a>
+		</div>
+	</section>
+
+	<section id="testimonials" class="">
+
+
+		<section id="note" class="">
+
+
+			<h2 class="text-center testimony">Témoignages</h2>
+
+
+			<div class="card__container swiper  ">
+				<div class="card__content">
+					<div class="swiper-wrapper">
+						<article class="card__article swiper-slide">
+							<div class="card__shadow"></div>
+
+
+							<div class="card__data">
+								<h3 class="card__name">Kell Dawx</h3>
+								<p class="card__description">
+									Passionate about development and design, 
+																																																															                           I carry out projects at the request of users.
+								</p>
+
+							</div>
+						</article>
+
+						<article class="card__article swiper-slide">
+
+							<div class="card__shadow"></div>
+
+
+							<div class="card__data">
+								<h3 class="card__name">Lotw Fox</h3>
+								<p class="card__description">
+									Passionate about development and design, 
+																																																															                           I carry out projects at the request of users.
+								</p>
+
+							</div>
+						</article>
+
+						<article class="card__article swiper-slide">
+							<div class="card__shadow"></div>
+
+
+							<div class="card__data">
+								<h3 class="card__name">Sara Mit</h3>
+								<p class="card__description">
+									Passionate about development and design, 
+																																																															                           I carry out projects at the request of users.
+								</p>
+
+							</div>
+						</article>
+
+						<article class="card__article swiper-slide">
+
+							<div class="card__shadow"></div>
+
+
+							<div class="card__data">
+								<h3 class="card__name">Jenny Wert</h3>
+								<p class="card__description">
+									Passionate about development and design, 
+																																																															                           I carry out projects at the request of users.
+								</p>
+
+							</div>
+						</article>
+
+
+					</div>
+
+					<!-- Navigation buttons -->
+					<div class="swiper-button-next" style="color: #0060A7;">
+						<i id="rightArrow" class="ri-arrow-right-s-line"></i>
+					</div>
+
+					<div class="swiper-button-prev" style="color: #0060A7;">
+						<i id="leftArrow" class="ri-arrow-left-s-line"></i>
+					</div>
+
+					<!-- Pagination -->
+
+				</div>
+			</section>
+
+
+		{% endblock %}
+
+		{% block javascripts %} 
+		
+		
+			<script src="{{ asset('assets/js/swiper-bundle.min.js') }}"></script>
+
+			 <script> 
+				 let swiperCards = new Swiper(".card__content", {
+				  loop: true,
+				  spaceBetween: 32,
+				  grabCursor: true,
+
+				  navigation: {
+				    nextEl: ".swiper-button-next",
+				    prevEl: ".swiper-button-prev",
+				  },
+
+				  breakpoints:{
+				    600: {
+				      slidesPerView: 2,
+				    },
+				    968: {
+				      slidesPerView: 2,
+				    },
+				  },
+				   });
+			</script>
+
+			<script>
+				
+			</script>
+
+
+		{% endblock %}
