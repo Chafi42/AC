@@ -56,11 +56,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Cars::class, mappedBy: 'user')]
     private Collection $cars;
 
-    /**
-     * @var Collection<int, Transaction>
-     */
-    #[ORM\OneToMany(targetEntity: Transaction::class, mappedBy: 'buyer')]
-    private Collection $transactions;
+  
+
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -76,7 +73,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->cars = new ArrayCollection();
-        $this->transactions = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
         $this->deletedAt = new \DateTimeImmutable();
@@ -247,40 +243,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Transaction>
-     */
-    public function getTransactions(): Collection
-    {
-        return $this->transactions;
-    }
 
-    public function addTransaction(Transaction $transaction): static
-    {
-        if (!$this->transactions->contains($transaction)) {
-            $this->transactions->add($transaction);
-            $transaction->setBuyer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTransaction(Transaction $transaction): static
-    {
-        if ($this->transactions->removeElement($transaction)) {
-            // set the owning side to null (unless already changed)
-            if ($transaction->getBuyer() === $this) {
-                $transaction->setBuyer(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
+   
+     public function getCreatedAt(): ?\DateTimeImmutable
+     {
+         return $this->createdAt;
+     }
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {

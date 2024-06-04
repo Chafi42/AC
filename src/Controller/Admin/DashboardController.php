@@ -4,7 +4,6 @@ namespace App\Controller\Admin;
 
 use App\Entity\Cars;
 use App\Entity\Picture;
-use App\Entity\Transaction;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -47,6 +46,5 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Cars', "fa-solid fa-car-side", Cars::class);
         yield MenuItem::linkToCrud('Picture', 'fa-regular fa-image', Picture::class);
-        yield MenuItem::linkToCrud('Transaction', 'fa-solid fa-hand-holding-dollar', Transaction::class);
     }
 }

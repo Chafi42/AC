@@ -30,7 +30,7 @@ class UserCrudController extends AbstractCrudController
             DateField::new('birthDate'),
             DateField::new('createdAt'),
             AssociationField::new('cars'),
-            AssociationField::new('transactions'),
+          
             
         ];
     }

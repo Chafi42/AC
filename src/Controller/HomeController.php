@@ -22,5 +22,19 @@ class HomeController extends AbstractController
             'pictures' => $picture,
         ]);
     }      
-}
 
+//     #[Route('/', name: 'app')]
+//     public function index(CarsRepository $carsRepository, PictureRepository $pictureRepository ): Response
+//     {
+//         $cars = $carsRepository->findAll();
+//         $picture = $pictureRepository->findAll();
+        
+//         return $this->render('home/home.html.twig', [
+//             'cars' => $cars,
+//             'pictures' => $picture,
+//         ]);
+//     }      
+
+// }
+
+}

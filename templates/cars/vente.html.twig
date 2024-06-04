@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Cars
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/vente.css') }}">
+
+{% endblock %}
+{% block body %}
+
+	<h1 class="text-center mt-3">À VOTRE VENTE</h1>
+
+	<div class="container mt-5">
+
+		<section>
+			<div class="row">
+				<div class="col-md-6 col-12 mb-4">
+					{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+					<div class="form-group">
+						{{ form_label(form.type, 'Type', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.type) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.brand, 'Marque', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.brand, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.brand) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.model, 'Model', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.model, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.model) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.year, 'Année', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.year, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.year) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.mileage, 'Kilomètrage', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.mileage, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.mileage) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.fuel, 'Carburant', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.fuel, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.fuel) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.gearBox, 'Boite de vitesse', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.gearBox, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.gearBox) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.price, 'Prix', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.price) }}
+					</div>
+					<div class="form-group">
+						{{ form_label(form.description, 'Description', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+						{{ form_errors(form.description) }}
+					</div>
+					{# <div class="form-group">
+						{{ form_label(form.picture, 'Picture', {'label_attr': {'class': 'control-label'}}) }}
+						{{ form_widget(form.picture, {'attr': {'class': 'form-control-file'}}) }}
+						{{ form_errors(form.picture) }}
+					</div> #}
+					{{ form_end(form) }}
+				</div>
+				<div class="col-md-6 col-12 mb-4">
+					<div class="photo-upload">
+						<h2 class="text-center pb-3">Ajoutez des photos</h2>
+						<div class="photo-slot" onclick="document.getElementById('photoInput1').click();">
+							<input type="file" id="photoInput1" style="display: none;">
+							<img src="{{ asset('images/camera_icon.png') }}" alt="Ajouter des photos">
+							<p>Ajouter des photos</p>
+						</div>
+						<div class="photo-slot">
+							<img src="{{ asset('images/camera_icon.png') }}" alt="Photo n°1">
+							<p>Photo n°1</p>
+						</div>
+						<div class="photo-slot">
+							<img src="{{ asset('images/camera_icon.png') }}" alt="Photo n°2">
+							<p>Photo n°2</p>
+						</div>
+						<div class="photo-slot">
+							<img src="{{ asset('images/camera_icon.png') }}" alt="Photo n°3">
+							<p>Photo n°3</p>
+						</div>
+						<div class="form-group d-flex justify-content-center w-100">
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock %}

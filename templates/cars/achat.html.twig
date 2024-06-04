@@ -7,24 +7,18 @@
 {% endblock %}
 {% block body %}
 
-
-
-		<div id="pictureHeader" class="w-100"> <h1 class="text-white d-flex justify-content-center align-items-center">
-			ACHAT
-		</h1>
-	</div>
-
 	<div class="d-flex">
 		<section id="containerSearchOption">
+		<form action="{{ path('app_cars_achat') }}" class="form" method="POST">
 
-			<div class="form">
+			
 				<div class="option">
 					<div class="lateral">
 						<input type="text" id="type" name="type" placeholder="Type"/>
 						<input type="text" id="brand" name="brand" placeholder="Marque"/>
 						<input type="text" id="model" name="model" placeholder="Modèle"/>
-						<input type="number" id="annee" placeholder="Année"/>
-						<input type="number" id="kmMax" placeholder="Km"/>
+						<input type="number" id="year" placeholder="Année"/>
+						<input type="number" id="mileage" placeholder="Km"/>
 						<input type="number" id="price" name="price" placeholder="Prix"/>
 					</div>
 					<h4 class="text-center py-3">Carburant</h4>
@@ -53,7 +47,7 @@
 						Recherche
 					</button>
 				</div>
-			</div>
+			</form>
 		</section>
 
 
@@ -66,7 +60,9 @@
 
 				{% for car in cars %}
 					<div class="card">
-						<img src={{asset('assets/img/cars-users/' ~ car.pictures[0].name)}} class="card-img-top" alt="Picture for {{ car.model }}"/>
+
+					<img src={{asset('assets/img/cars-users/' ~ car.pictures[0].name)}} class="card-img-top" alt="Picture for {{ car.model }}"/>
+					
 						<div class="card-body">
 
 
@@ -78,8 +74,8 @@
 								</div>
 
 								<div class="d-flex flex-column">
-									<p class="card-year">{{ car.year }}</p>
-									<p class="card-mileage">{{ car.mileage }}</p>
+									<p class="card-year">{{ car.year }} ans</p>
+									<p class="card-mileage">{{ car.mileage }} km</p>
 									<p class="card-fuel">{{ car.fuel }}</p>
 								</div>
 							</div>
@@ -88,19 +84,46 @@
 							<p class="card-price text-center">{{ car.price }}€</p>
 
 
-							<a href="{{ path('app_cars_show', {'id': car.id}) }}" class="d-flex justify-content-center btn btn-primary">Voir</a>
+				
+						<a href="{{ path('app_cars_show', {'id': car.id}) }}" class="btn btn-primary">Voir</a>
 						</div>
 					</div>
 				{% endfor %}
 			</div>
-
-
 		</section>
 	</div>
 
 	{% block javascripts %}
 
-	
+
+<script>
+
+
+  const searchInput = document.getElementById('searchInput');
+  const cards = document.getElementsByClassName('card');
+
+  searchInput.addEventListener('input', function() {
+    const searchValue = this.value.toLowerCase();
+
+    for (let card of cards) {
+      const cardType = card.querySelector('.card-type').textContent.toLowerCase();
+      const cardBrand = card.querySelector('.card-brand').textContent.toLowerCase();
+      const cardModel = card.querySelector('.card-model').textContent.toLowerCase();
+      const cardYear = card.querySelector('.card-year').textContent.toLowerCase();
+      const cardMileage = card.querySelector('.card-mileage').textContent.toLowerCase();
+      const cardFuel = card.querySelector('.card-fuel').textContent.toLowerCase();
+      const cardPrice = card.querySelector('.card-price').textContent.toLowerCase();
+
+      if (cardType.includes(searchValue) || cardBrand.includes(searchValue) || cardModel.includes(searchValue) || cardYear.includes(searchValue) || cardMileage.includes(searchValue) || cardFuel.includes(searchValue) || cardPrice.includes(searchValue)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+</script>
+
+
 
 	{% endblock %}
 {% endblock %}

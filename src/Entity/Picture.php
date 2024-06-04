@@ -48,3 +48,5 @@ class Picture
         return $this;
     }
 }
+
+

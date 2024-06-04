@@ -1,66 +1,115 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-  Cars
+{% block title %}Cars index
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/show.css') }}">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+
+
+{% endblock %}
+{% block body %}
+
+  <section class="container my-5">
+   
+    <div class="row">
+
+ <section class="container my-5">
+    <div class="row ">
+      <div class="col-lg-6 mb-4">
+       <h1 class="text-center ">{{ car.brand }} {{ car.model }}</h1>
+        <div style="--swiper-navigation-color: red; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="{{ asset('assets/img/cars-users/' ~ car.pictures[0].name) }}" alt="Picture for {{ car.model }}">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="Nature 2">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="Nature 3">
+            </div>
+            <!-- Ajoutez d'autres slides ici -->
+          </div>
+     
+        </div>
+        <div thumbsSlider="" class="swiper mySwiper mt-3">
+          <div class="swiper-wrapper object-fit-contain border rounded">
+            <div class="swiper-slide">
+              <img src="{{ asset('assets/img/cars-users/' ~ car.pictures[0].name) }}" alt="Picture for {{ car.model }}">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="Nature 2">
+            </div>
+            <div class="swiper-slide">
+              <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="Nature 3">
+            </div>
+            <!-- Ajoutez d'autres slides ici -->
+          </div>
+               
+               <div 
+
+               style="
+               --swiper-navigation-color: black;" 
+               
+               class="swiper-button-next"
+               
+               ></div>
+
+          <div style="--swiper-navigation-color: black;" class="swiper-button-prev"></div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4">
+        <div class="details-container">
+          <form class="d-flex flex-column text-center">
+            <p>Type: {{ car.type }}</p>
+            <p>Carburant: {{ car.fuel }}</p>
+            <p>Kilomètrage: {{ car.mileage }}</p>
+            <p>Marque: {{ car.brand }}</p>
+            <p>Modèle: {{ car.model }}</p>
+            <p>Année: {{ car.year }}</p>
+            <p>Prix: {{ car.price }} €</p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <button class="reservation-button mt-5">RESERVER CE VEHICULE</button>
+    </div>
+  </section>
+
+    </div>
+
+
+
+
 {% endblock %}
 
-{% block body %}
-  <h1>Cars</h1>
+{% block javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>Id</th>
-        <td>{{ car.id }}</td>
-      </tr>
-      <tr>
-        <th>Brand</th>
-        <td>{{ car.brand }}</td>
-      </tr>
-      <tr>
-        <th>Model</th>
-        <td>{{ car.model }}</td>
-      </tr>
-      <tr>
-        <th>Year</th>
-        <td>{{ car.year }}</td>
-      </tr>
-      <tr>
-        <th>Mileage</th>
-        <td>{{ car.mileage }}</td>
-      </tr>
-      <tr>
-        <th>Fuel</th>
-        <td>{{ car.fuel }}</td>
-      </tr>
-      <tr>
-        <th>Type</th>
-        <td>{{ car.type }}</td>
-      </tr>
-      <tr>
-        <th>GearBox</th>
-        <td>{{ car.gearBox }}</td>
-      </tr>
-      <tr>
-        <th>Price</th>
-        <td>{{ car.price }}</td>
-      </tr>
-      <tr>
-        <th>Description</th>
-        <td>{{ car.description }}</td>
-      </tr>
-      <tr>
-        <th>Picture</th>
-        {% for picture in car.pictures %}
-    <img src={{asset('assets/img/cars-users' ~ picture.name)}} alt="Picture for {{ car.model }}"/>
-{% endfor %}
-      </tr>
-    </tbody>
-  </table>
 
-  <a href="{{ path('app_cars_achat') }}">back to list</a>
-
-  <a href="{{ path('app_cars_edit', { id: car.id }) }}">edit</a>
-
-  {{ include('cars/_delete_form.html.twig') }}
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    spaceBetween:1 ,
+    slidesPerView: 3,
+    freeMode: true,
+    watchSlidesProgress: true,
+    loop: true,
+  });
+  const swiper2 = new Swiper(".mySwiper2", {
+    spaceBetween: 10,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    thumbs: {
+      swiper: swiper,
+    },
+  });
+</script>
 {% endblock %}
