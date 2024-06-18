@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Controller;
 
@@ -8,6 +8,7 @@ use App\Entity\Picture;
 use App\Form\CarsType;
 use App\Repository\CarsRepository;
 use App\Repository\PictureRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,34 +21,43 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class CarsController extends AbstractController
 {
     #[Route('/achat', name: 'app_cars_achat', methods: ['GET', 'POST'])]
-    public function index(CarsRepository $carsRepository, Request $request): Response
+    public function index(CarsRepository $carsRepository, Request $request, PictureRepository $pictureRepository): Response
     {
         if ($request->isMethod('POST')) {
-            $typeBrandModel = $request->request->get('typeBrandModel');
-            $cars = $carsRepository->findBy(['brand' => $typeBrandModel]);
 
-            // Check if km and price were sent in the form and adapt the search accordingly
-            // Example:
-            // $km = $request->request->get('km');
-            // $price = $request->request->get('price');
-            // $cars = $carsRepository->findBy(['brand' => $typeBrandModel, 'km' => $km, 'price' => $price]);
+
+            $model = $request->request->all('model');
+            $type = $request->request->all('type');
+            $brand = $request->request->all('brand');
+            $mileage = $request->request->all('mileage');
+            $price = $request->request->all('price');
+
+            $cars = $carsRepository->findBy([
+                'model' => $model,
+                'type' => $type,
+                'brand' => $brand,
+                'mileage' => $mileage,
+                'price' => $price,
+            ]);
+
+
 
             if (!$cars) {
                 $cars = $carsRepository->findAll();
-                // Optionally display a flash message indicating no results were found
-                $this->addFlash('notice', 'Aucun résultat trouvé');
             }
         } else {
             $cars = $carsRepository->findAll();
         }
-
+        $pictures = $pictureRepository->findAll();
+        // dd($pictures);
         return $this->render('cars/achat.html.twig', [
             'cars' => $cars,
+            'pictures' => $pictures,
         ]);
     }
 
     #[Route('/vente', name: 'app_cars_vente', methods: ['GET', 'POST'])]
-    public function new(Request $request, SluggerInterface $slugger, PictureRepository $pictureRepository, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, SluggerInterface $slugger, PictureRepository $picture, EntityManagerInterface $entityManager): Response
     {
         $cars = new Cars();
         $form = $this->createForm(CarsType::class, $cars);
@@ -86,11 +96,13 @@ class CarsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_cars_show', methods: ['GET'])]
-    public function show(Cars $car): Response
+    #[Route('/car/{id}', name: 'app_cars_show', methods: ['GET'])]
+    public function show(Cars $cars): Response
     {
+        $users = UserRepository::class;
         return $this->render('cars/show.html.twig', [
-            'car' => $car,
+            'cars' => $cars,
+            'users' => $users,
         ]);
     }
 
@@ -111,7 +123,7 @@ class CarsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_cars_delete', methods: ['POST'])]
+    #[Route('/car/delete/{id}', name: 'app_cars_delete', methods: ['POST'])]
     public function delete(Request $request, Cars $car, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $car->getId(), $request->request->get('_token'))) {

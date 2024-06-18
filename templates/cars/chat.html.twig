@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cars index
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/chat.css') }}">
+{% endblock %}
+{% block body %}
+
+
+{# <section class="d-flex flex-column align-items-start mb-2">
+  <div class="container chat-message border rounded bg-light my-4 me-3">
+    <div class="row no-gutters p-3">
+      <div class="col-12 d-flex flex-column align-items-start mb-2">
+        <p class="mb-0">Djena</p>
+        <p class="message mb-0">Your message goes here...</p>
+        <span class="time-left text-muted">11h41</span>
+      </div>
+      <div class="col-12 d-flex flex-column align-items-end mb-2">
+        <p class="mb-0">Chafi</p>
+        <p class="message mb-0">Your message goes here...</p>
+        <span class="time-right text-muted">11h41</span>
+      </div>
+    </div>
+  </div>
+</section> #}
+
+<section class="flex flex-col items-center mb-2">
+  <div class="container border rounded bg-gray-100 my-4 mr-3 p-3">
+    <div class="grid gap-3">
+      <div class="flex flex-col items-start mb-2">
+        <p class="mb-0">Djena</p>
+        <p class="message mb-0">Your message goes here...</p>
+        <span class="text-muted text-sm">11h41</span>
+      </div>
+      <div class="flex flex-col items-end mb-2">
+        <p class="mb-0">Chafi</p>
+        <p class="message mb-0">Your message goes here...</p>
+        <span class="text-muted text-sm">11h41</span>
+      </div>
+      <input class="form-control block w-full mt-2 p-2 border rounded" type="text" placeholder="Ecris ton message">
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
+
+{% block javascripts %}{% endblock %}

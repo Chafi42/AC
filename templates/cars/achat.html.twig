@@ -7,85 +7,87 @@
 {% endblock %}
 {% block body %}
 
-	<div class="d-flex">
-		<section id="containerSearchOption">
-		<form action="{{ path('app_cars_achat') }}" class="form" method="POST">
-
-			
-				<div class="option">
-					<div class="lateral">
-						<input type="text" id="type" name="type" placeholder="Type"/>
-						<input type="text" id="brand" name="brand" placeholder="Marque"/>
-						<input type="text" id="model" name="model" placeholder="Modèle"/>
-						<input type="number" id="year" placeholder="Année"/>
-						<input type="number" id="mileage" placeholder="Km"/>
-						<input type="number" id="price" name="price" placeholder="Prix"/>
-					</div>
-					<h4 class="text-center py-3">Carburant</h4>
-					<div class="d-flex">
-						<input type="checkbox" id="fuelDiesel" name="fuelDiesel"/>
-						<label class="ps-3">Diesel</label>
-					</div>
-					<div class="d-flex">
-						<input type="checkbox" id="fuelEssence" name="fuelEssence"/>
-						<label class="ps-3">Essence</label>
-					</div>
-					<div class="d-flex">
-						<input type="checkbox" id="fuelGPL" name="fuelGPL"/>
-						<label class="ps-3">GPL</label>
-					</div>
-					<h4 class="text-center py-3">Boite à vitesse</h4>
-					<div class="d-flex">
-						<input type="checkbox" id="manualGearBox" name="manualGearBox"/>
-						<label class="ps-3">Manuelle</label>
-					</div>
-					<div class="d-flex">
-						<input type="checkbox" id="gearBoxAutomatique" name="automaticGearBox"/>
-						<label class="ps-3">Automatique</label>
-					</div>
-					<button onclick="filterCars()" id="searchButtonCar" type="submit">
-						Recherche
-					</button>
+	<div class="flex flex-col lg:flex-row space-y-12 lg:space-y-0 lg:space-x-4">
+		<section style="background-color: #0060A7;" class="w-full lg:w-1/4 p-6 bg-white shadow-lg">
+			<form action="{{ path('app_cars_achat') }}" method="POST">
+				<div class="flex flex-col space-y-4">
+					<input type="text" id="searchInput" name="type" placeholder="Type" class="input-text p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+					<input type="text" id="brand" name="brand" placeholder="Marque" class="input-text p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+					<input type="text" id="model" name="model" placeholder="Modèle" class="input-text p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+					<input type="number" id="year" name="year" placeholder="Année" class="input-text p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+					<input type="number" id="mileage" name="mileage" placeholder="Km" class="input-text p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+					<input type="number" id="price" name="price" placeholder="Prix" class="input-text p-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"/>
 				</div>
+
+				<h4 class="py-3 mt-6 ml-2 text-white">Carburant</h4>
+				<div class="flex flex-col space-y-2 text-white">
+					<div class="flex items-center">
+						<input type="checkbox" id="fuelDiesel" name="fuelDiesel" class="form-checkbox"/>
+						<label for="fuelDiesel" class="ml-2">Diesel</label>
+					</div>
+					<div class="flex items-center">
+						<input type="checkbox" id="fuelEssence" name="fuelEssence" class="form-checkbox"/>
+						<label for="fuelEssence" class="ml-2">Essence</label>
+					</div>
+					<div class="flex items-center">
+						<input type="checkbox" id="fuelGPL" name="fuelGPL" class="form-checkbox"/>
+						<label for="fuelGPL" class="ml-2">GPL</label>
+					</div>
+				</div>
+
+				<h4 class="py-3 mt-6 ml-2 text-white">Boite à vitesse</h4>
+				<div class="text-white flex flex-col space-y-2">
+					<div class="flex items-center">
+						<input type="checkbox" id="manualGearBox" name="manualGearBox" class="form-checkbox"/>
+						<label for="manualGearBox" class="ml-2">Manuelle</label>
+					</div>
+					<div class="flex items-center">
+						<input type="checkbox" id="automaticGearBox" name="automaticGearBox" class="form-checkbox"/>
+						<label for="automaticGearBox" class="ml-2">Automatique</label>
+					</div>
+				</div>
+
+				<button id="purchaseButton" type="submit" onclick="" class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transition duration-300">
+					Recherche
+				</button>
 			</form>
 		</section>
 
-
-		<section id="cardsCars">
-
-			<p class="p-3 fs-3">{{ cars|length }}
+		<section id="cardsCars" class="w-full lg:w-3/4 p-6 bg-white ">
+			<p class="p-3 text-3xl font-semibold ">{{ cars|length }}
 				annonces</p>
-
-			<div class="container-card">
-
+			<div id="car-list" class="container-card grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{% for car in cars %}
-					<div class="card">
-
-					<img src={{asset('assets/img/cars-users/' ~ car.pictures[0].name)}} class="card-img-top" alt="Picture for {{ car.model }}"/>
-					
-						<div class="card-body">
+					<div class="card border border-gray-200 shadow-md rounded-lg overflow-hidden bg-white">
 
 
-							<div class="characteristic">
-								<div class="d-flex flex-column">
-									<p class="card-type">{{ car.type }}</p>
-									<p class="card-brand">{{ car.brand }}</p>
-									<p class="card-model">{{ car.model }}</p>
+						<div class="card-images h-48 overflow-hidden">
+							{% if car.pictures %}
+								{# <img src="{{ asset('assets/img/cars-users/' ~ pictures.name) }}" alt="{{ pictures.name }}" class="w-full h-full object-cover"/> #}
+								{{ dump(car.pictures) }}
+
+							{% endif %}
+						</div>
+
+						<div class="card-body p-4">
+							<div class="characteristic flex justify-between mb-4">
+								<div class="flex flex-col">
+									<p class="card-type font-bold text-lg text-gray-800">{{ car.type }}</p>
+									<p class="card-brand text-gray-500">{{ car.brand }}</p>
+									<p class="card-model text-gray-500">{{ car.model }}</p>
 								</div>
-
-								<div class="d-flex flex-column">
-									<p class="card-year">{{ car.year }} ans</p>
-									<p class="card-mileage">{{ car.mileage }} km</p>
-									<p class="card-fuel">{{ car.fuel }}</p>
+								<div class="flex flex-col text-right">
+									<p class="card-year text-gray-500">{{ car.year }}
+										ans</p>
+									<p class="card-mileage text-gray-500">{{ car.mileage }}
+										km</p>
+									<p class="card-fuel text-gray-500">{{ car.fuel }}</p>
 								</div>
 							</div>
-
-
-							<p class="card-price text-center">{{ car.price }}€</p>
-
-
-				
-						<a href="{{ path('app_cars_show', {'id': car.id}) }}" class="btn btn-primary">Voir</a>
+							<p class="card-price text-center text-xl font-bold text-gray-800 mb-4">{{ car.price }}€</p>
+							<a href="{{ path('app_cars_show', {'id': car.id}) }}" class="btn btn-primary block text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300">
+								Voir
+							</a>
 						</div>
 					</div>
 				{% endfor %}
@@ -93,37 +95,6 @@
 		</section>
 	</div>
 
-	{% block javascripts %}
 
-
-<script>
-
-
-  const searchInput = document.getElementById('searchInput');
-  const cards = document.getElementsByClassName('card');
-
-  searchInput.addEventListener('input', function() {
-    const searchValue = this.value.toLowerCase();
-
-    for (let card of cards) {
-      const cardType = card.querySelector('.card-type').textContent.toLowerCase();
-      const cardBrand = card.querySelector('.card-brand').textContent.toLowerCase();
-      const cardModel = card.querySelector('.card-model').textContent.toLowerCase();
-      const cardYear = card.querySelector('.card-year').textContent.toLowerCase();
-      const cardMileage = card.querySelector('.card-mileage').textContent.toLowerCase();
-      const cardFuel = card.querySelector('.card-fuel').textContent.toLowerCase();
-      const cardPrice = card.querySelector('.card-price').textContent.toLowerCase();
-
-      if (cardType.includes(searchValue) || cardBrand.includes(searchValue) || cardModel.includes(searchValue) || cardYear.includes(searchValue) || cardMileage.includes(searchValue) || cardFuel.includes(searchValue) || cardPrice.includes(searchValue)) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    }
-  });
-</script>
-
-
-
-	{% endblock %}
 {% endblock %}
+{% block javascripts %}{% endblock %}

@@ -3,97 +3,64 @@
 {% block title %}Cars index
 {% endblock %}
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('assets/css/show.css') }}">
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-/>
-
+    <link rel="stylesheet" href="{{ asset('assets/css/show.css') }}" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 
 {% endblock %}
 {% block body %}
 
-  <section class="container my-5">
-   
-    <div class="row">
+<div class="flex flex-col md:flex-row my-5">
 
- <section class="container my-5">
-    <div class="row ">
-      <div class="col-lg-6 mb-4">
-       <h1 class="text-center ">{{ car.brand }} {{ car.model }}</h1>
-        <div style="--swiper-navigation-color: red; --swiper-pagination-color: #fff;" class="swiper mySwiper2">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="{{ asset('assets/img/cars-users/' ~ car.pictures[0].name) }}" alt="Picture for {{ car.model }}">
-            </div>
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="Nature 2">
-            </div>
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="Nature 3">
-            </div>
-            <!-- Ajoutez d'autres slides ici -->
-          </div>
-     
-        </div>
-        <div thumbsSlider="" class="swiper mySwiper mt-3">
-          <div class="swiper-wrapper object-fit-contain border rounded">
-            <div class="swiper-slide">
-              <img src="{{ asset('assets/img/cars-users/' ~ car.pictures[0].name) }}" alt="Picture for {{ car.model }}">
-            </div>
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="Nature 2">
-            </div>
-            <div class="swiper-slide">
-              <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="Nature 3">
-            </div>
-            <!-- Ajoutez d'autres slides ici -->
-          </div>
-               
-               <div 
+    <section class="flex flex-col md:flex-row md:space-x-4">
 
-               style="
-               --swiper-navigation-color: black;" 
-               
-               class="swiper-button-next"
-               
-               ></div>
+        <div class="md:w-1/2 mb-4">
 
-          <div style="--swiper-navigation-color: black;" class="swiper-button-prev"></div>
+            <!-- Car title -->
+
+            {% for car in cars %}
+              
+           
+            <h1 class="text-center text-2xl md:text-4xl font-bold mb-4">{{ car.brand }} {{ car.model }}</h1>
+
         </div>
-      </div>
-      <div class="col-lg-6 mb-4">
-        <div class="details-container">
-          <form class="d-flex flex-column text-center">
-            <p>Type: {{ car.type }}</p>
-            <p>Carburant: {{ car.fuel }}</p>
-            <p>Kilomètrage: {{ car.mileage }}</p>
-            <p>Marque: {{ car.brand }}</p>
-            <p>Modèle: {{ car.model }}</p>
-            <p>Année: {{ car.year }}</p>
-            <p>Prix: {{ car.price }} €</p>
-          </form>
+
+        <div class="md:w-1/2 mb-4">
+            <!-- Car details -->
+            <div class="details-container">
+                <div class="flex flex-col items-center text-center space-y-2">
+                    <p><span class="font-bold">Type:</span> {{ car.type }}</p>
+                    <p><span class="font-bold">Carburant:</span> {{ car.fuel }}</p>
+                    <p><span class="font-bold">Kilomètrage:</span> {{ car.mileage }}</p>
+                    <p><span class="font-bold">Marque:</span> {{ car.brand }}</p>
+                    <p><span class="font-bold">Modèle:</span> {{ car.model }}</p>
+                    <p><span class="font-bold">Année:</span> {{ car.year }}</p>
+                    <p><span class="font-bold">Prix:</span> {{ car.price }} €</p>
+                </div>
+            </div>
         </div>
-      </div>
+
+    </section>
+
+    <div class="text-center mt-4 md:mt-0">
+        <!-- Contact link -->
+        <i class="fa-regular fa-comments">CONTACTEZ-MOI</i>
+        <a href="{{ path('app_chat', {'id': car.id}) }}"
+           class="btn btn-danger bg-secondary inline-block mt-2 md:mt-0 md:ml-4">
+            Contacter
+        </a>
     </div>
-    <div class="text-center">
-      <button class="reservation-button mt-5">RESERVER CE VEHICULE</button>
-    </div>
+ {% endfor %}
+</div>
   </section>
-
-    </div>
-
-
+  
+</div>
 
 
-{% endblock %}
-
-{% block javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+</div>{% endblock %}{% block javascripts %} <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
-<script>
+ <script>
   const swiper = new Swiper(".mySwiper", {
     spaceBetween:1 ,
     slidesPerView: 3,
@@ -111,5 +78,4 @@
       swiper: swiper,
     },
   });
-</script>
-{% endblock %}
+</script>{% endblock %}
