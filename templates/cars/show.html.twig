@@ -3,79 +3,110 @@
 {% block title %}Cars index
 {% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('assets/css/show.css') }}" />
+	<link rel="stylesheet" href="{{ asset('assets/css/show.css') }}"/>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
 
 {% endblock %}
 {% block body %}
 
-<div class="flex flex-col md:flex-row my-5">
+	<div class="container mx-auto p-4">
+		<section class="bg-white p-4 rounded-lg shadow-lg">
 
-    <section class="flex flex-col md:flex-row md:space-x-4">
+			<!-- Car title and images -->
+			<div class="mb-4">
+				<h1 class="text-center text-2xl md:text-4xl font-bold mb-4">{{ car.brand }}
+					{{ car.model }}</h1>
 
-        <div class="md:w-1/2 mb-4">
+				<!-- Image gallery -->
+				<div class="flex flex-wrap justify-center space-x-4 p-2">
 
-            <!-- Car title -->
+					{% for picture in pictures %}
+			   <img src="{{ asset('assets/img/cars-users/') ~ picture.name }}" alt="{{ picture.name }}" class="w-full sm:w-64 md:w-72 h-full rounded-lg shadow-md mb-2 sm:mb-0">
+					{% endfor %}
 
-            {% for car in cars %}
-              
-           
-            <h1 class="text-center text-2xl md:text-4xl font-bold mb-4">{{ car.brand }} {{ car.model }}</h1>
+				</div>
+			</div>
 
-        </div>
+			<!-- Car details -->
+			<div class="md:w-full mb-4">
+				<div class="p-4 rounded-lg shadow-sm detail-car">
+					<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-center">
+						<div>
+							<p>
+								<span class="font-bold">Type:</span>
+								{{ car.type }}</p>
+						</div>
+						<div>
+							<p>
+								<span class="font-bold">Carburant:</span>
+								{{ car.fuel }}</p>
+						</div>
+						<div>
+							<p>
+								<span class="font-bold">Kilomètrage:</span>
+								{{ car.mileage }}
+								km</p>
+						</div>
+						<div>
+							<p>
+								<span class="font-bold">Marque:</span>
+								{{ car.brand }}
+							</p>
+						</div>
+						<div>
+							<p>
+								<span class="font-bold">Modèle:</span>
+								{{ car.model }}</p>
+						</div>
+						<div>
+							<p>
+								<span class="font-bold">Année:</span>
+								{{ car.year }}</p>
+						</div>
+						<div class="col-span-1 sm:col-span-2 md:col-span-3">
+							<p>
+								<span class="font-bold">Prix:</span>
+								{{ car.price }}
+								€</p>
+						</div>
+					</div>
+				</div>
 
-        <div class="md:w-1/2 mb-4">
-            <!-- Car details -->
-            <div class="details-container">
-                <div class="flex flex-col items-center text-center space-y-2">
-                    <p><span class="font-bold">Type:</span> {{ car.type }}</p>
-                    <p><span class="font-bold">Carburant:</span> {{ car.fuel }}</p>
-                    <p><span class="font-bold">Kilomètrage:</span> {{ car.mileage }}</p>
-                    <p><span class="font-bold">Marque:</span> {{ car.brand }}</p>
-                    <p><span class="font-bold">Modèle:</span> {{ car.model }}</p>
-                    <p><span class="font-bold">Année:</span> {{ car.year }}</p>
-                    <p><span class="font-bold">Prix:</span> {{ car.price }} €</p>
-                </div>
-            </div>
-        </div>
+				<!-- Contact link -->
+				<div class="text-center mt-4">
+					<a href="{{ path('app_chat', {'id': car.id}) }}" style="background-color: #0060A7;" class="btn text-white py-2 px-4 rounded-lg  inline-flex items-center">
+						<i class="fas fa-comments mr-2"></i>
+						Contacter
+					</a>
+				</div>
+			</div>
 
-    </section>
-
-    <div class="text-center mt-4 md:mt-0">
-        <!-- Contact link -->
-        <i class="fa-regular fa-comments">CONTACTEZ-MOI</i>
-        <a href="{{ path('app_chat', {'id': car.id}) }}"
-           class="btn btn-danger bg-secondary inline-block mt-2 md:mt-0 md:ml-4">
-            Contacter
-        </a>
-    </div>
- {% endfor %}
-</div>
-  </section>
-  
-</div>
+		</section>
+	</div>
 
 
-</div>{% endblock %}{% block javascripts %} <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+{% endblock %}
+{% block javascripts %} <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 
- <script>
-  const swiper = new Swiper(".mySwiper", {
-    spaceBetween:1 ,
-    slidesPerView: 3,
-    freeMode: true,
-    watchSlidesProgress: true,
-    loop: true,
-  });
-  const swiper2 = new Swiper(".mySwiper2", {
-    spaceBetween: 10,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    thumbs: {
-      swiper: swiper,
-    },
-  });
-</script>{% endblock %}
+	 <script>
+	  const swiper = new Swiper(".mySwiper", {
+	    spaceBetween:1 ,
+	    slidesPerView: 3,
+	    freeMode: true,
+	    watchSlidesProgress: true,
+	    loop: true,
+	  });
+	  const swiper2 = new Swiper(".mySwiper2", {
+	    spaceBetween: 10,
+	    navigation: {
+	      nextEl: ".swiper-button-next",
+	      prevEl: ".swiper-button-prev",
+	    },
+	    thumbs: {
+	      swiper: swiper,
+	    },
+	  });
+	</script>
+{% endblock %}

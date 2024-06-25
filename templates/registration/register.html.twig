@@ -1,24 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+
+<section class="min-h-screen flex items-center justify-center" 
+style="
+background: rgb(0,96,167); 
+background: radial-gradient(circle, rgba(0,96,167,1) 14%, rgba(0,96,167,1) 41%, rgba(0,212,255,1) 75%);">
+    <div class="flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-8 w-full max-w-screen-lg p-4">
+        <div class="w-full lg:w-1/2 p-8 space-y-4 text-white bg-opacity-50 rounded-lg shadow-lg">
+            {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
+                <div class="text-center">
+            {{ form_start(registrationForm) }}
+            {{ form_widget(registrationForm) }}
+            </div>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="w-full bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">S'enregistrer</button>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+
+        <div class="w-full lg:w-1/2 flex flex-col items-center text-center">
+            <img src="{{ asset('assets/img/logo/bmw.png') }}" alt="logo" class="mb-4">
+            <a href="{{ path('app_login')}}" class="text-white mt-4 text-2xl">Déjà inscrit ? Connectez-vous</a>
+        </div>
+           </div>
+</section>
 
 
-   {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.lastName) }}
-        {{ form_row(registrationForm.firstName) }}
-        {{ form_row(registrationForm.age) }}
-        {{ form_row(registrationForm.birthDate) }}
-        {{ form_row(registrationForm.phone) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        <button type="submit" class="btn btn-primary">Register</button>
-    {{ form_end(registrationForm) }}
-    <p href="{{ path('app_login') }}">Vous avez déjà un compte ?
-<a>Connectez vous ici</a></p>
-  
+
+
 {% endblock %}

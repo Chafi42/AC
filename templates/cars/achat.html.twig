@@ -62,39 +62,109 @@
 
 
 						<div class="card-images h-48 overflow-hidden">
-							{% if car.pictures %}
-								{# <img src="{{ asset('assets/img/cars-users/' ~ pictures.name) }}" alt="{{ pictures.name }}" class="w-full h-full object-cover"/> #}
-								{{ dump(car.pictures) }}
-
-							{% endif %}
-						</div>
-
-						<div class="card-body p-4">
-							<div class="characteristic flex justify-between mb-4">
-								<div class="flex flex-col">
-									<p class="card-type font-bold text-lg text-gray-800">{{ car.type }}</p>
-									<p class="card-brand text-gray-500">{{ car.brand }}</p>
-									<p class="card-model text-gray-500">{{ car.model }}</p>
-								</div>
-								<div class="flex flex-col text-right">
-									<p class="card-year text-gray-500">{{ car.year }}
-										ans</p>
-									<p class="card-mileage text-gray-500">{{ car.mileage }}
-										km</p>
-									<p class="card-fuel text-gray-500">{{ car.fuel }}</p>
-								</div>
-							</div>
-							<p class="card-price text-center text-xl font-bold text-gray-800 mb-4">{{ car.price }}€</p>
-							<a href="{{ path('app_cars_show', {'id': car.id}) }}" class="btn btn-primary block text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300">
-								Voir
-							</a>
-						</div>
-					</div>
-				{% endfor %}
-			</div>
-		</section>
+	{% if car.pictures %}
+		{% for picture in car.pictures %}
+			{% if picture.car.id == car.id %}
+				<img src="{{ asset('assets/img/cars-users/' ~ picture.name) }}" alt="{{ picture.name }}" class="w-full h-full object-cover"/>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
 	</div>
+							<div class="card-body p-4">
+								<div class="characteristic flex justify-between mb-4">
+									<div class="flex flex-col">
+										<p class="card-type font-bold text-lg text-gray-800">{{ car.type }}</p>
+										<p class="card-brand text-gray-500">{{ car.brand }}</p>
+										<p class="card-model text-gray-500">{{ car.model }}</p>
+									</div>
+									<div class="flex flex-col text-right">
+										<p class="card-year text-gray-500">{{ car.year }}
+											ans</p>
+										<p class="card-mileage text-gray-500">{{ car.mileage }}
+											km</p>
+										<p class="card-fuel text-gray-500">{{ car.fuel }}</p>
+									</div>
+								</div>
+								<p class="card-price text-center text-xl font-bold text-gray-800 mb-4">{{ car.price }}€</p>
+								<a href="{{ path('app_cars_show', {'id': car.id}) }}" class="btn btn-primary block text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300">
+									Voir
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</section>
+		</div>
 
 
+	{% endblock %}
+
+
+{% block javascripts %}
+<script>
+// Attache un gestionnaire d'événements 'submit' à l'élément avec l'ID 'searchForm'
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    // Empêche la soumission normale du formulaire
+    event.preventDefault();
+
+    // Crée un nouvel objet FormData à partir du formulaire
+    const formData = new FormData(this);
+    // Crée un nouvel objet URLSearchParams pour construire les paramètres de la requête
+    const searchParams = new URLSearchParams();
+
+    // Pour chaque paire clé/valeur dans formData, ajoute cette paire à searchParams
+    for (const pair of formData) {
+        searchParams.append(pair[0], pair[1]);
+    }
+
+    // Envoie une requête POST à l'URL spécifiée avec les paramètres de recherche comme corps de la requête
+    fetch('{{ path('app_cars_achat') }}', {
+        method: 'POST',
+        body: searchParams,
+    })
+    // Convertit la réponse en JSON
+    .then(response => response.json())
+    // Traite les données JSON
+    .then(data => {
+        // Obtient l'élément avec l'ID 'car-list'
+        const carList = document.getElementById('car-list');
+        // Vide le contenu de carList
+        carList.innerHTML = '';
+
+        // Pour chaque voiture dans les données
+        data.cars.forEach(car => {
+            // Crée une nouvelle carte de voiture avec les informations de la voiture
+            const carCard = `
+                <div class="card border border-gray-200 shadow-md rounded-lg overflow-hidden bg-white">
+                    <div class="card-images h-48 overflow-hidden">
+                        ${car.pictures.map(picture => `<img src="{{ asset('assets/img/cars-users/') }}${picture.name}" alt="${picture.name}" class="w-full h-full object-cover"/>`).join('')}
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="characteristic flex justify-between mb-4">
+                            <div class="flex flex-col">
+                                <p class="card-type font-bold text-lg text-gray-800">${car.type}</p>
+                                <p class="card-brand text-gray-500">${car.brand}</p>
+                                <p class="card-model text-gray-500">${car.model}</p>
+                            </div>
+                            <div class="flex flex-col text-right">
+                                <p class="card-year text-gray-500">${car.year} ans</p>
+                                <p class="card-mileage text-gray-500">${car.mileage} km</p>
+                                <p class="card-fuel text-gray-500">${car.fuel}</p>
+                            </div>
+                        </div>
+                        <p class="card-price text-center text-xl font-bold text-gray-800 mb-4">${car.price}€</p>
+                        <a href="{{ path('app_cars_show', {'id': car.id}) }}" class="btn btn-primary block text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-300">
+                            Voir
+                        </a>
+                    </div>
+                </div>
+            `;
+            // Ajoute la carte de voiture à carList
+            carList.innerHTML += carCard;
+        });
+    })
+    // Si une erreur se produit, la log dans la console
+    .catch(error => console.error('Error:', error));
+});
+</script>
 {% endblock %}
-{% block javascripts %}{% endblock %}

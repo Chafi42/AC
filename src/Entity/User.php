@@ -44,8 +44,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $age = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $birthDate = null;
+    #[ORM\Column(type: 'date')]
+    private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column]
     private ?int $phone = null;
@@ -56,7 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Cars::class, mappedBy: 'user')]
     private Collection $cars;
 
-  
+
 
 
     #[ORM\Column]
@@ -68,6 +68,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $deletedAt = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $profilePicture = null;
 
 
     public function __construct()
@@ -194,6 +196,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->birthDate;
     }
 
+    // Modification birth Date avant il y avait jj/mm/aaaa 
+    // maintenant il y a jj-mm-aaaa
     public function setBirthDate(\DateTimeImmutable $birthDate): static
     {
         $this->birthDate = $birthDate;
@@ -244,11 +248,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-   
-     public function getCreatedAt(): ?\DateTimeImmutable
-     {
-         return $this->createdAt;
-     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -281,4 +285,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(string $profilePicture): static
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
 }

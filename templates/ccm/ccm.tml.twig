@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CCMController!
+{% endblock %}
+
+{% block body %}
+
+
+	<section>
+
+		<div class="container mx-auto p-8">
+			<h1 class="text-2xl font-bold text-center mb-5">L'achat de votre prochaine voiture n'a jamais été aussi facile et pratique avec AutoCars !</h1>
+
+			<div class="flex justify-center mb-8">
+				<a href="{{ path('app_cars_achat') }}" style="background-color: #0060A7;"  class=" text-white font-bold py-2 px-4 rounded">Voir les voitures</a>
+
+			</div>
+
+			<h2 class="text-2xl font-bold mb-6">Nos fonctionnonements :</h2>
+
+			<div class="bg-white p-6 rounded-lg shadow-md mb-6">
+				<div class="flex flex-col md:flex-row items-center mb-4">
+					<img class="w-full md:w-1/3 rounded-lg" src="{{ asset('assets/img/comment-ça-marche/garantie.jpg')}}" alt="Garantie">
+					<div class="mt-4 md:mt-0 md:ml-6">
+						<h3 class="text-xl font-semibold mb-2">1. Le meilleur prix garanti</h3>
+						<p>Chez AutoCars, les prix ne se discutent pas. Nous vous garantissons les meilleurs prix, que ce soit pour l'achat d'une nouvelle voiture ou la reprise de votre ancien véhicule. Nous vous remboursons la différence si vous trouvez moins cher chez un autre professionnel de l'automobile.
+						Un bon prix, c'est un prix sans ennui. Nos véhicules d'occasion sont reconditionnés et garantis 1 an ou 15 000 km sans frais d'entretien. Et nos voitures neuves bénéficient de la garantie constructeur.
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-white p-6 rounded-lg shadow-md mb-6">
+				<div class="flex flex-col md:flex-row items-center">
+					<div class="mt-4 md:mt-0 md:mr-6 md:w-2/3">
+						<h3 class="text-xl font-semibold mb-2">2. Un service personnalisé et sans stress</h3>
+						<p>
+				Que vous soyez chez vous, au bureau, ou même en vacances, achetez votre voiture en toute simplicité. En seulement 24 heures, votre nouvelle voiture peut être livrée directement à votre domicile ou prête à être récupérée en agence. Nous nous occupons également de la reprise de votre ancien véhicule, soit en agence avec un de nos conseillers, soit directement chez vous. Il vous suffit de prendre quelques photos de votre voiture avec notre application mobile, et nous nous chargeons de tout le reste.
+						</p>
+
+					</div>
+					<img class="w-full md:w-1/3 rounded-lg" src="{{ asset('assets/img/comment-ça-marche/doigt.jpg')}}" alt="Garantie">
+				</div>
+			</div>
+		</div>
+
+		<div class="bg-white p-6 rounded-lg shadow-md mb-6">
+			<div class="flex flex-col md:flex-row items-center mb-4">
+				<img class="w-full md:w-1/3 rounded-lg" src="{{ asset('assets/img/comment-ça-marche/serenitee.jpg')}}" alt="Garantie">
+				<div class="mt-4 md:mt-0 md:ml-6">
+					<h3 class="text-xl font-semibold mb-2">3.Calme et sérénitée</h3>
+					<p>
+					Chez AutoCars Automobile, nous redéfinissons l'expérience d'achat automobile. Nos véhicules d'occasion certifiés sont bien plus que des voitures d'occasion ordinaires. Chaque véhicule est soumis à un rigoureux contrôle de qualité comprenant plus de 200 points d'inspection. Cela nous permet de vous offrir une garantie exceptionnelle d'un an ou 15 000 km, sans frais d'entretien supplémentaires. Fini le compromis entre fiabilité et prix abordable. Pour ceux qui préfèrent le neuf, nos voitures neuves et 0 km bénéficient également de la garantie constructeur, vous assurant une tranquillité d'esprit totale, comme si vous achetiez chez le concessionnaire directement. Chez AutoCars Automobile, chaque voiture représente une promesse de qualité et de sérénité sur la route.
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="bg-white p-6 rounded-lg shadow-md mb-6">
+			<div class="flex flex-col md:flex-row items-center">
+				<div class="mt-4 md:mt-0 md:mr-6 md:w-2/3">
+					<h3 class="text-xl font-semibold mb-2">4. Expedition</h3>
+					<p>
+						Imaginez une nouvelle façon d'acheter votre prochaine voiture : confortablement installé chez vous, en déplacement sur la plage, ou même pendant vos trajets en métro. Chez nous, l'achat d'une voiture se plie à votre style de vie. En seulement 24 heures, vous pouvez voir votre véhicule préféré garé devant chez vous ou dans l'une de nos agences. Et ce n'est pas tout : nous facilitons également la reprise de votre ancien véhicule. Avec notre application mobile intuitive, prenez une photo de votre voiture actuelle, laissez-nous l'expertiser, et nous viendrons la récupérer directement à votre domicile.
+					</p>
+				</div>
+				<img class="w-full md:w-1/3 rounded-lg" src="{{ asset('assets/img/comment-ça-marche/livraison.jpg')}}" alt="Garantie">
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white p-6 rounded-lg shadow-md mb-6">
+		<div class="flex flex-col md:flex-row items-center mb-4">
+			<img class="w-full md:w-1/3 rounded-lg" src="{{ asset('assets/img/comment-ça-marche/voitures.jpg')}}" alt="Garantie">
+			<div class="mt-4 md:mt-0 md:ml-6">
+				<h3 class="text-xl font-semibold mb-2">5. Une large gamme</h3>
+				<p>
+					Chez AutoCars, la transparence est notre engagement premier. Nous vous proposons les meilleurs prix du marché, que ce soit pour l'achat d'une nouvelle voiture ou la reprise de votre véhicule actuel. Nos garanties sont simples et sans équivoque : si vous trouvez moins cher ailleurs chez un autre professionnel de l'automobile, nous vous remboursons la différence. Un bon prix chez AutoCars, c'est bien plus qu'une affaire : c'est la garantie d'une transaction sans souci. Nos véhicules d'occasion sont rigoureusement reconditionnés et bénéficient d'une garantie d'un an ou 15 000 km, sans frais d'entretien cachés. Quant à nos voitures neuves, elles sont toutes accompagnées de la garantie constructeur. Chez nous, votre satisfaction est notre priorité, à chaque étape de votre achat automobile.
+				</p>
+
+
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white p-6 rounded-lg shadow-md mb-6">
+		<div class="flex flex-col md:flex-row items-center">
+			<div class="mt-4 md:mt-0 md:mr-6 md:w-2/3">
+				<h3 class="text-xl font-semibold mb-2">6. Achat en ligne</h3>
+				<p>
+					Que vous soyez confortablement installé chez vous, en train de profiter d'une journée à la plage ou en pleine course dans votre quotidien citadin, l'achat de votre nouvelle voiture n'a jamais été aussi simple et adapté à votre style de vie. En seulement 24 heures, vous pouvez choisir et personnaliser votre véhicule selon vos préférences, et le recevoir directement en agence ou à votre domicile. De plus, nous facilitons la reprise de votre ancien véhicule : il vous suffit de le photographier avec notre application mobile, nous nous chargeons de l'expertise et de la récupération, que ce soit en agence ou chez vous. Chez nous, votre expérience d'achat automobile est conçue pour être aussi flexible et pratique que possible.
+			</div>
+			<img class="w-full md:w-1/3 rounded-lg" src="{{ asset('assets/img/comment-ça-marche/vente-en-ligne.jpg')}}" alt="Garantie">
+		</div>
+	</div>
+</div>
+
+<div class="bg-white p-6 rounded-lg shadow-md mb-6">
+	<div class="flex flex-col md:flex-row items-center mb-4">
+		<img class="w-full md:w-1/3 rounded-lg" src="{{ asset('assets/img/comment-ça-marche/engagement.jpg')}}" alt="Garantie">
+		<div class="mt-4 md:mt-0 md:ml-6">
+			<h3 class="text-xl font-semibold mb-2">7. Promesse et Obligation</h3>
+			<p>
+				
+Chez AutoCars, nous ne négocions pas les prix. Nous nous engageons à vous offrir les tarifs les plus compétitifs du marché, que vous envisagiez l'achat d'une voiture neuve ou la reprise de votre véhicule actuel. Si vous trouvez moins cher ailleurs chez un autre professionnel de l'automobile, nous vous remboursons la différence. Pour nous, un bon prix signifie une tranquillité d'esprit totale. Nos véhicules d'occasion sont rigoureusement reconditionnés et bénéficient d'une garantie d'un an ou 15 000 km sans frais d'entretien. Quant à nos voitures neuves, elles sont couvertes par la garantie constructeur, vous assurant ainsi une satisfaction à long terme. Chez AutoCars, votre confiance et votre satisfaction sont notre priorité absolue.
+			</p>
+
+
+		</div>
+	</div>
+</div></section>{% endblock %}

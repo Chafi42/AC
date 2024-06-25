@@ -23,39 +23,47 @@ class CarsController extends AbstractController
     #[Route('/achat', name: 'app_cars_achat', methods: ['GET', 'POST'])]
     public function index(CarsRepository $carsRepository, Request $request, PictureRepository $pictureRepository): Response
     {
+        $cars = [];
+    
         if ($request->isMethod('POST')) {
-
-
-            $model = $request->request->all('model');
-            $type = $request->request->all('type');
-            $brand = $request->request->all('brand');
-            $mileage = $request->request->all('mileage');
-            $price = $request->request->all('price');
-
-            $cars = $carsRepository->findBy([
-                'model' => $model,
-                'type' => $type,
-                'brand' => $brand,
-                'mileage' => $mileage,
-                'price' => $price,
-            ]);
-
-
-
-            if (!$cars) {
-                $cars = $carsRepository->findAll();
+            $model = $request->request->get('model');
+            $type = $request->request->get('type');
+            $brand = $request->request->get('brand');
+            $mileage = $request->request->get('mileage');
+            $price = $request->request->get('price');
+    
+            // Construire un tableau de critères de recherche dynamiquement
+            $criteria = [];
+            if ($model) {
+                $criteria['model'] = $model;
             }
-        } else {
+            if ($type) {
+                $criteria['type'] = $type;
+            }
+            if ($brand) {
+                $criteria['brand'] = $brand;
+            }
+            if ($mileage) {
+                $criteria['mileage'] = $mileage;
+            }
+            if ($price) {
+                $criteria['price'] = $price;
+            }
+    
+            $cars = $carsRepository->findBy($criteria);
+        }
+    
+        if (empty($cars)) {
             $cars = $carsRepository->findAll();
         }
+    
         $pictures = $pictureRepository->findAll();
-        // dd($pictures);
+    
         return $this->render('cars/achat.html.twig', [
             'cars' => $cars,
             'pictures' => $pictures,
         ]);
     }
-
     #[Route('/vente', name: 'app_cars_vente', methods: ['GET', 'POST'])]
     public function new(Request $request, SluggerInterface $slugger, PictureRepository $picture, EntityManagerInterface $entityManager): Response
     {
@@ -97,12 +105,14 @@ class CarsController extends AbstractController
     }
 
     #[Route('/car/{id}', name: 'app_cars_show', methods: ['GET'])]
-    public function show(Cars $cars): Response
+    public function show(Cars $cars, PictureRepository $pictureRepository): Response
     {
+        $pictures = $pictureRepository->findBy(['car' => $cars]);
         $users = UserRepository::class;
         return $this->render('cars/show.html.twig', [
-            'cars' => $cars,
+            'car' => $cars,
             'users' => $users,
+            'pictures' => $pictures,
         ]);
     }
 

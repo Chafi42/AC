@@ -28,10 +28,4 @@ class HomeController extends AbstractController
     {
         return $this->render('cars/chat.html.twig',);
     }
-
-    #[Route('/profil', name: 'app_profil')]
-    public function profil(): Response
-    {
-        return $this->render('cars/profil.html.twig',);
-    }
 }

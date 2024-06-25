@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+
+
+<section class="flex items-center justify-center h-screen bg-gray-100">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-4xl">
+        <div class="flex flex-col sm:flex-row items-center p-6 border-b border-gray-200">
+            <div class="relative mr-6 sm:mr-8">
+
+                <img src="{{ asset('assets/img/logo/pdp.png')}}" alt="Photo de profil" class="w-20 h-20 rounded-full">
+                <button class="absolute bottom-0 right-0 bg-white border-2 border-yellow-500 rounded-full w-6 h-6 flex items-center justify-center text-yellow-500 font-bold text-sm">+</button>
+            </div>
+            <div>
+                <h2 class="text-lg font-bold">CA42</h2>
+                <a href="#" class="text-blue-600 text-sm">Accéder à mon profil public</a>
+            </div>
+        </div>
+        <div class="bg-blue-50 p-6 border-b border-gray-200">
+            <p class="text-blue-600">Photo de profil <span class="bg-yellow-500 text-white py-1 px-2 rounded text-xs">nouveau</span></p>
+            <p class="text-blue-600 mt-2">Pour une expérience plus agréable entre membres avec qui vous allez faire de bonnes affaires !</p>
+        </div>
+        <div class="flex flex-wrap">
+            <div class="w-full md:w-1/2 border-b md:border-r border-gray-200 p-6 flex items-center">
+                <div class="text-3xl">📋</div>
+                <div class="ml-4">
+                    <h3 class="font-bold">Annonces</h3>
+                    <p class="text-sm">Gérer mes annonces déposées</p>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 border-b border-gray-200 p-6 flex items-center">
+                <div class="text-3xl">💶</div>
+                <div class="ml-4">
+                    <h3 class="font-bold">Transactions</h3>
+                    <p class="text-sm">Suivre mes achats et mes ventes</p>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 border-b md:border-r border-gray-200 p-6 flex items-center">
+                <div class="text-3xl">👤</div>
+                <div class="ml-4">
+                    <h3 class="font-bold">Profil & Espaces</h3>
+                    <p class="text-sm">Modifier mon profil public, accéder à mes avis, aux espaces candidat, locataire et bailleur</p>
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 p-6 flex items-center">
+                <div class="text-3xl">⚙️</div>
+                <div class="ml-4">
+                    <h3 class="font-bold">Paramètres</h3>
+                    <p class="text-sm">Compléter et modifier mes informations privées et préférences</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

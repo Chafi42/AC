@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use DateTime;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -30,6 +31,7 @@ class UserCrudController extends AbstractCrudController
             DateField::new('birthDate'),
             DateField::new('createdAt'),
             AssociationField::new('cars'),
+            // TextField::new('pictureProfil'),
           
             
         ];

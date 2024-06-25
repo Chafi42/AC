@@ -37,7 +37,7 @@ class RegistrationController extends AbstractController
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $form->get('password')->getData()
                 )
             );
 
@@ -80,6 +80,9 @@ class RegistrationController extends AbstractController
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
         $this->addFlash('success', 'Félicitations! Votre adresse e-mail est maintenant vérifiée. Vous pouvez maintenant vous connecter.');
 
+        if($this->getUser()->getRoles() === ['ROLE_ADMIN']) {
+            return $this->redirectToRoute('admin_dashboard');
+        }
         return $this->redirectToRoute('app_register');
     }
 }

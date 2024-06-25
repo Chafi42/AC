@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9924b258f0279bfeee2de73f81551ec",
+    "content-hash": "d2c7c34f0446f0dd92e461513ab39063",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -4268,6 +4268,71 @@
             "time": "2024-03-27T19:55:25+00:00"
         },
         {
+            "name": "symfony/google-mailer",
+            "version": "v7.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/google-mailer.git",
+                "reference": "1a87e35e84bd265bbb0ea09ca020162c3e8e689c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/google-mailer/zipball/1a87e35e84bd265bbb0ea09ca020162c3e8e689c",
+                "reference": "1a87e35e84bd265bbb0ea09ca020162c3e8e689c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony/mailer": "^6.4|^7.0"
+            },
+            "require-dev": {
+                "symfony/http-client": "^6.4|^7.0"
+            },
+            "type": "symfony-mailer-bridge",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Mailer\\Bridge\\Google\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Google Mailer Bridge",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/google-mailer/tree/v7.0.8"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-05-31T14:55:39+00:00"
+        },
+        {
             "name": "symfony/http-client",
             "version": "v7.0.6",
             "source": {
@@ -4710,16 +4775,16 @@
         },
         {
             "name": "symfony/mailer",
-            "version": "v7.0.6",
+            "version": "v7.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mailer.git",
-                "reference": "eb0c3187c7ddfde12d8aa0e1fa5fb29e730a41e0"
+                "reference": "644c2b5ddd778666298d73c1a8c0949f74ef6649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mailer/zipball/eb0c3187c7ddfde12d8aa0e1fa5fb29e730a41e0",
-                "reference": "eb0c3187c7ddfde12d8aa0e1fa5fb29e730a41e0",
+                "url": "https://api.github.com/repos/symfony/mailer/zipball/644c2b5ddd778666298d73c1a8c0949f74ef6649",
+                "reference": "644c2b5ddd778666298d73c1a8c0949f74ef6649",
                 "shasum": ""
             },
             "require": {
@@ -4770,7 +4835,7 @@
             "description": "Helps sending emails",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/mailer/tree/v7.0.6"
+                "source": "https://github.com/symfony/mailer/tree/v7.0.8"
             },
             "funding": [
                 {
@@ -4786,20 +4851,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-28T09:20:36+00:00"
+            "time": "2024-05-31T14:55:39+00:00"
         },
         {
             "name": "symfony/messenger",
-            "version": "v7.0.6",
+            "version": "v7.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/messenger.git",
-                "reference": "4e281ef8bf5397be36fe14d64eb665fa12a945ad"
+                "reference": "ed7bccfe31e7f0bdb5b101f48b6027622a7a48cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/messenger/zipball/4e281ef8bf5397be36fe14d64eb665fa12a945ad",
-                "reference": "4e281ef8bf5397be36fe14d64eb665fa12a945ad",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/ed7bccfe31e7f0bdb5b101f48b6027622a7a48cb",
+                "reference": "ed7bccfe31e7f0bdb5b101f48b6027622a7a48cb",
                 "shasum": ""
             },
             "require": {
@@ -4856,7 +4921,7 @@
             "description": "Helps applications send and receive messages to/from other applications or via message queues",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/messenger/tree/v7.0.6"
+                "source": "https://github.com/symfony/messenger/tree/v7.0.8"
             },
             "funding": [
                 {
@@ -4872,7 +4937,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-19T11:57:22+00:00"
+            "time": "2024-05-31T14:55:39+00:00"
         },
         {
             "name": "symfony/mime",
