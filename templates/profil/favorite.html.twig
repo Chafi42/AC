@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Mes Annonces
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('assets/css/profil.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="mx-auto">
+            <div class="flex flex-col md:flex-row">
+                <!-- Sidebar -->
+                <div class="w-full md:w-1/4 p-4 shadow" style="background-color: #0060A7;">
+                    <ul class="space-y-4 profil-items">
+                        <li>
+                            <a href="{{ path('app_profil')}}" class="text-gray-800">Mon profil</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_profile_announcement')}}">Mes annonces</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_profil_favorite')}}" class="text-gray-800">Mes favoris</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app_cars_vente')}}">Déposer une annonce</a>
+                        </li>
+                        <li>
+                            <a href="{{path('app_logout')}}">Déconnexion</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Main Content -->
+                <div class="w-full md:w-3/4 p-4">
+                    <h1 class="text-xl font-semibold mb-4">Mes favoris</h1>
+                    <p class="text-gray-700 mb-4">Retrouvez ici toutes les annonces que vous avez ajoutées à vos favoris. Les annonces qui disparaissent du site sont automatiquement retirées de votre sélection.</p>
+                    <h2 class="text-lg font-semibold mb-4 flex items-center">
+                        Mes voitures
+                    </h2>
+                    <div class="space-y-4">
+                        <!-- Car Item 1 -->
+                        <div class="flex flex-col md:flex-row bg-gray-50 p-4 rounded shadow">
+                            <img src="car1.jpg" alt="HYUNDAI I30" class="w-32 h-24 object-cover rounded mr-4">
+                            <div class="flex-grow">
+                                <h3 class="font-semibold">HYUNDAI I30 (3E GENERATION) FASTBACK</h3>
+                                <p class="text-gray-700">III FASTBACK 1.4 T-GDI 140 EXECUTIVE DCT-7</p>
+                                <p class="text-gray-600 text-sm">Professionnel
+                                    <span class="material-icons text-gray-500 text-base">location_on</span>
+                                    33</p>
+                                <p class="text-gray-600 text-sm">Garantie 12 mois</p>
+                                <p class="text-gray-600 text-sm">2020 | 34 484 km</p>
+                                <p class="text-pink-500 font-semibold">22 490 €</p>
+                            </div>
+                        </div>
+                        <!-- Car Item 2 -->
+                        <div class="flex flex-col md:flex-row bg-gray-50 p-4 rounded shadow">
+                            <img src="car2.jpg" alt="MASERATI GRANTURISMO" class="w-32 h-24 object-cover rounded mr-4">
+                            <div class="flex-grow">
+                                <h3 class="font-semibold">MASERATI GRANTURISMO</h3>
+                                <p class="text-gray-700">4.7 V8 S BVR</p>
+                                <p class="text-gray-600 text-sm">Professionnel
+                                    <span class="material-icons text-gray-500 text-base">location_on</span>
+                                    67</p>
+                                <p class="text-gray-600 text-sm">Garantie 12 mois</p>
+                                <p class="text-gray-600 text-sm">2009 | 116 950 km</p>
+                                <p class="text-pink-500 font-semibold">44 800 €</p>
+                            </div>
+                        </div>
+                        <!-- Car Item 3 -->
+                        <div class="flex flex-col md:flex-row bg-gray-50 p-4 rounded shadow">
+                            <img src="car3.jpg" alt="HYUNDAI IONIQ 5" class="w-32 h-24 object-cover rounded mr-4">
+                            <div class="flex-grow">
+                                <h3 class="font-semibold">HYUNDAI IONIQ 5</h3>
+                                <p class="text-gray-700">CREATIVE 73 KWH</p>
+                                <p class="text-gray-600 text-sm">Professionnel
+                                    <span class="material-icons text-gray-500 text-base">location_on</span>
+                                    85</p>
+                                <p class="text-gray-600 text-sm">Garantie 12 mois</p>
+                                <p class="text-gray-600 text-sm">2021 | 84 730 km</p>
+                                <p class="text-pink-500 font-semibold">27 990 €</p>
+                            </div>
+                        </div>
+                        <!-- Car Item 4 -->
+                        <div class="flex flex-col md:flex-row bg-gray-50 p-4 rounded shadow">
+                            <img src="car4.jpg" alt="AUDI Q2" class="w-32 h-24 object-cover rounded mr-4">
+                            <div class="flex-grow">
+                                <h3 class="font-semibold">AUDI Q2</h3>
+                                <p class="text-gray-700">35 TFSI 150 COD S LINE S TRONIC</p>
+                                <p class="text-gray-600 text-sm">Professionnel
+                                    <span class="material-icons text-gray-500 text-base">location_on</span>
+                                    39</p>
+                                <p class="text-gray-600 text-sm">Garantie 12 mois</p>
+                                <p class="text-gray-600 text-sm">2019 | 74 814 km</p>
+                                <p class="text-pink-500 font-semibold">24 990 €</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

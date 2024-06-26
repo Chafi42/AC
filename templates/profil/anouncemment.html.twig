@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mes Annonces
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('assets/css/profil.css') }}">
+{% endblock %}
+
+{% block body %}
+
+	<section>
+		<div class="mx-auto">
+			<div
+				class="flex">
+				<!-- Sidebar -->
+				<div class="w-1/4 p-4 shadow" style="background-color: #0060A7;">
+					<ul class="space-y-4 profil-items">
+						<li>
+							<a href="{{ path('app_profil')}}" class="text-gray-800">Mon profil</a>
+						</li>
+						<li>
+							<a href="{{ path('app_profile_announcement')}}">Mes annonces</a>
+						</li>
+						<li>
+							<a href="{{ path('app_profil_favorite')}}" class="text-gray-800">Mes favoris</a>
+						</li>
+						<li>
+							<a href="{{ path('app_cars_vente')}}">Déposer une annonce</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">Déconnexion</a>
+						</li>
+					</ul>
+				</div>
+				<!-- Main Content -->
+				<div class="w-3/4 ml-6">
+					<div class="bg-white p-6 rounded shadow">
+						<h1 class="text-xl font-semibold mb-4">Mes Annonces</h1>
+						<div class="border-2 border-dashed border-gray-300 p-6 text-center">
+							<p>Vous n'avez pas d'annonces</p>
+							<a href="{{ path('app_cars_vente')}}">
+								<button type="submit" class="bg-pink-500 text-white px-4 py-2 rounded mt-4">Déposer une annonce</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	{% endblock %}
