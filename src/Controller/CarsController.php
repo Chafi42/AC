@@ -108,10 +108,8 @@ class CarsController extends AbstractController
     public function show(Cars $cars, PictureRepository $pictureRepository): Response
     {
         $pictures = $pictureRepository->findBy(['car' => $cars]);
-        $users = UserRepository::class;
         return $this->render('cars/show.html.twig', [
             'car' => $cars,
-            'users' => $users,
             'pictures' => $pictures,
         ]);
     }

@@ -13,24 +13,20 @@
 
 	<section>
 
-		<div
-			id="default-carousel" class="relative w-full" data-carousel="slide">
-			<!-- Carousel wrapper -->
-			<div
-				class="relative h-56 overflow-hidden rounded-lg md:h-96">
-				<!-- Item 1 -->
+		<div id="default-carousel" class="relative w-full" data-carousel="slide">
+			<div class="relative h-56 overflow-hidden rounded-lg md:h-96">
 
-{% for car in cars %}
-				{% for picture in pictures %}
-					
-					
-				<a href="{{ path('app_cars_show', {'id': car.id}) }}">		
-		<div class="hidden duration-700 ease-in-out bg-cover" data-carousel-item>
-	
+				{% for car in cars %}
+					{% for picture in pictures %}
 
-	<img src="{{ asset('assets/img/cars-users/' ~ picture.name) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="{{picture.name}}">
-						</div>
-							</a>
+
+						<a href="{{ path('app_cars_show', {'id': car.id}) }}">
+							<div class="hidden duration-700 ease-in-out bg-cover" data-carousel-item>
+
+
+								<img src="{{ asset('assets/img/cars-users/' ~ picture.name) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="{{picture.name}}">
+							</div>
+						</a>
 					{% endfor %}
 				{% endfor %}
 				<!-- Item 2 -->
@@ -60,33 +56,33 @@
 			<div class="py-8 px-4 mx-auto max-w-2xl lg:py-16 flex justify-center items-center">
 
 
-			<form action="{{ path('app_cars_achat') }}" method="post">
-    <div class="grid gap-4 sm:grid-cols-2 sm:gap-6 flex justify-center items-center">
-        <div class="sm:col-span-2">
-            <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
-            <input type="text" name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Sport">
-        </div>
-        <div class="w-full">
-            <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marque</label>
-            <input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Jaguar">
-        </div>
-        <div class="w-full">
-            <label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model</label>
-            <input type="text" name="model" id="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="XJ14">
-        </div>
-        <div>
-            <label for="mileage" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kilométrages</label>
-            <input type="text" name="mileage" id="mileage" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="150 000 kms">
-        </div>
-        <div>
-            <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-            <input type="text" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="50 000€">
-        </div>
-    </div>
-    <button type="submit" class="w-full px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
-        Recherchez
-    </button>
-</form>
+				<form action="{{ path('app_cars_achat') }}" method="post">
+					<div class="grid gap-4 sm:grid-cols-2 sm:gap-6 flex justify-center items-center">
+						<div class="sm:col-span-2">
+							<label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+							<input type="text" name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Sport">
+						</div>
+						<div class="w-full">
+							<label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marque</label>
+							<input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Jaguar">
+						</div>
+						<div class="w-full">
+							<label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model</label>
+							<input type="text" name="model" id="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="XJ14">
+						</div>
+						<div>
+							<label for="mileage" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kilométrages</label>
+							<input type="text" name="mileage" id="mileage" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="150 000 kms">
+						</div>
+						<div>
+							<label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+							<input type="text" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="50 000€">
+						</div>
+					</div>
+					<button type="submit" class="w-full px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+						Recherchez
+					</button>
+				</form>
 			</div>
 		</section>
 

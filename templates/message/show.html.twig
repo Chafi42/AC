@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message
+{% endblock %}
+
+{% block body %}
+	{# <section class="flex justify-center my-10 items-center">
+		<div class="container mx-auto p-4">
+			<div class="flex flex-col justify-center items-center lg:flex-row">
+				<div class="w-full lg:w-3/4 bg-white p-4 border rounded-lg shadow-lg mt-4 lg:mt-0 flex flex-col">
+					<div class="flex items-center justify-between mb-4">
+						<div class="flex items-center">
+							<a class="block">
+								<img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar" class="w-10 h-10 rounded-full">
+							</a>
+							<div class="ml-4">
+								<h6 class="font-bold m-0">
+									{% for user in users %}
+										{{ user.username }}
+									{% endfor %}
+								</h6>
+							</div>
+						</div>
+					</div>
+					<div class="flex-1 overflow-y-auto">
+						<ul class="space-y-4">
+							{% for message in messages %}
+								<li class="flex {% if message.sender == app.user.username %}justify-end{% else %}justify-start{% endif %}">
+									<div class="max-w-xs">
+										<div class="mt-1 {% if message.sender == app.user.username %}bg-blue-100{% else %}bg-gray-100{% endif %} text-gray-800 p-2 rounded-lg inline-block">
+											{{ message.createdAt|date('d/H:i') }}
+											-
+											{{ message.content }}
+										</div>
+									</div>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<form id="messageForm" action="{{ path('app_message_new') }}" method="POST">
+						<div class="mt-4">
+							<div class="flex items-center border rounded-lg overflow-hidden">
+								<input type="text" name="message" class="w-full py-2 px-4 text-gray-700 focus:outline-none" placeholder="Enter your message...">
+								<button type="submit" class="flex items-center justify-center px-3 border-l bg-blue-500 text-white">Send</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section> #}
+{% endblock %}
+
+{# {% block javascripts %}
+	 <script>
+	document.addEventListener('DOMContentLoaded', function() {
+	    const form = document.getElementById('messageForm');
+	    
+	    form.addEventListener('submit', function(e) {
+	        e.preventDefault();
+	
+	        const formData = new FormData(form);
+	
+	        fetch('{{ path('app_message_new') }}', {
+	            method: 'POST',
+	            body: formData
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            if (data.success) {
+	                form.reset();
+	
+	                const messageList = document.querySelector('ul.space-y-4');
+	                const newMessage = document.createElement('li');
+	                newMessage.className = `flex ${data.message.sender === '{{ app.user.username }}' ? 'justify-end' : 'justify-start'}`;
+	                newMessage.innerHTML = `
+	                    <div class="max-w-xs">
+	                        <div class="mt-1 ${data.message.sender === '{{ app.user.username }}' ? 'bg-blue-100' : 'bg-gray-100'} text-gray-800 p-2 rounded-lg inline-block">
+	                            ${new Date(data.message.createdAt).toLocaleString()} - ${data.message.content}
+	                        </div>
+	                    </div>`;
+	                messageList.appendChild(newMessage);
+	                messageList.scrollTop = messageList.scrollHeight;
+	            } else {
+	                console.error('Error:', data.message);
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Network error:', error);
+	        });
+	    });
+	});
+	</script>
+{% endblock %} #}

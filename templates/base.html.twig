@@ -85,12 +85,15 @@
 
 						</li>
 					</ul>
-					<div class="justify-start flex	gap-4">
+					<div class="justify-start flex">
 						{% if app.user %}
-							<a class="hidden lg:inline-block py-2 px-6 bg-blue-700 text-sm text-white rounded-xl transition" href="{{ path('app_profil')}}">Profil</a>
+					<a class="lg:inline-block py-2 px-2 text-sm rounded-xl transition" href="{{ path('app_message')}}">
+					<i class="fa-solid fa-comment-dots" style="color: #0060A7; font-size: x-large;"></i>
+					</a>
+							<a class="hidden lg:inline-block py-2 px-4 text-sm rounded-xl transition" href="{{ path('app_profil')}}">Profil</a>
 							<a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 text-sm rounded-xl transition" href="{{ path('app_logout')}}">Déconnexion</a>
 						{% else %}
-							<a class="hidden lg:inline-block py-2 px-6 bg-blue-700 text-sm text-white rounded-xl transition" href="{{ path('app_login')}}">Connexion</a>
+							<a class="hidden lg:inline-block py-2 px-6 text-sm rounded-xl transition" href="{{ path('app_login')}}">Connexion</a>
 							<a class="hidden lg:inline-block lg:ml-auto lg:mr-3 py-2 text-sm rounded-xl transition" href="{{ path('app_register')}}">Inscription</a>
 						{% endif %}
 
@@ -131,11 +134,11 @@
 					<div class="mt-auto">
 						<div class="py-6">
 							{% if app.user %}
-								<a class="block py-2 px-4 text-sm rounded text-black" href="{{ path('app_profil')}}">Profil</a>
-								<a class="block py-2 px-4 text-sm bg-blue-700 rounded text-white mt-2" href="{{ path('app_logout')}}">Déconnexion</a>
+								<a class="block py-2 px-4 text-sm rounded" href="{{ path('app_profil')}}">Profil</a>
+								<a class="block py-2 px-4 text-sm rounded mt-2" href="{{ path('app_logout')}}">Déconnexion</a>
 							{% else %}
-								<a class="block py-2 px-4 text-sm rounded text-black" href="{{ path('app_login')}}">Connexion</a>
-								<a class="block py-2 px-4 text-sm  rounded bg-blue-700 text-white mt-2 " href="{{ path('app_register')}}">Inscription</a>
+								<a class="block py-2 px-4 text-sm rounded" href="{{ path('app_login')}}">Connexion</a>
+								<a class="block py-2 px-4 text-sm rounded mt-2" href="{{ path('app_register')}}">Inscription</a>
 							{% endif %}
 						</div>
 

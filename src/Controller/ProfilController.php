@@ -16,17 +16,17 @@ class ProfilController extends AbstractController
         return $this->render('profil/profil.html.twig');
     }
 
-    // #[Route('/profil/{id}', name: 'app_profil_id')]
-    // public function profil($id, UserRepository $userRepository, PictureRepository $pictureRepository): Response
-    // {
-    //     $user = $userRepository->find($id);
-    //     $pictures = $pictureRepository->findBy(['user' => $user]);
+    #[Route('/profil/{id}', name: 'app_profil_id')]
+    public function update($id, UserRepository $userRepository, PictureRepository $pictureRepository): Response
+    {
+        $user = $userRepository->find($id);
+        $pictures = $pictureRepository->findBy(['user' => $user]);
 
-    //     return $this->render('profil/profil.html.twig', [
-    //         'user' => $user,
-    //         'pictures' => $pictures
-    //     ]);
-    // }
+        return $this->render('profil/profil.html.twig', [
+            'user' => $user,
+            'pictures' => $pictures
+        ]);
+    }
 
     #[Route('/profil/annonce', name: 'app_profile_announcement')]
     public function announcement(): Response

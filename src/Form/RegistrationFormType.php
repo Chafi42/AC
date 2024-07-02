@@ -23,7 +23,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'text-gray-900 rounded-lg block w-full p-2.5 mt-4', 
+                    'class' => 'rounded-lg block w-full p-2.5 mt-4', 
                     'placeholder' => 'name@company.com', 
                     'required' => true
                 ],
@@ -33,7 +33,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'attr' => [
-                    'class' => 'text-gray-900 rounded-lg block w-full p-2.5 mt-4', 
+                    'class' => 'rounded-lg block w-full p-2.5 mt-4', 
                     'placeholder' => '********', 
                     'required' => true
                 ],         
@@ -56,7 +56,7 @@ class RegistrationFormType extends AbstractType
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
                 'attr' => [
-                    'class' => 'text-gray-900 rounded-lg block w-full p-2.5 mt-4', 
+                    'class' => 'rounded-lg block w-full p-2.5 mt-4', 
                     'placeholder' => 'Joe', 
                     'required' => true
                 ],
@@ -67,7 +67,7 @@ class RegistrationFormType extends AbstractType
             ->add('firstName', TextType::class, [
                 'label' => 'Prénom',
                 'attr' => [
-                    'class' => 'text-gray-900 rounded-lg block w-full p-2.5 mt-4', 
+                    'class' => 'rounded-lg block w-full p-2.5 mt-4', 
                     'placeholder' => 'Doe', 
                     'required' => true
                 ],
@@ -78,7 +78,7 @@ class RegistrationFormType extends AbstractType
             ->add('age', IntegerType::class, [
                 'label' => 'Age',
                 'attr' => [
-                    'class' => 'text-gray-900 rounded-lg block w-full p-2.5 mt-4', 
+                    'class' => 'rounded-lg block w-full p-2.5 mt-4', 
                     'placeholder' => '25', 
                     'required' => true
                 ],
@@ -89,7 +89,7 @@ class RegistrationFormType extends AbstractType
             ->add('birthDate', DateType::class, [
                 'label' => 'Date de naissance',
                 'attr' => [
-                    'class' => 'text-gray-900 rounded-lg block w-full p-2.5 mt-4', 
+                    'class' => 'rounded-lg block w-full p-2.5 mt-4', 
                     'placeholder' => '1996-12-25', 
                     'required' => true
                 ],
@@ -101,7 +101,7 @@ class RegistrationFormType extends AbstractType
             ->add('phone', IntegerType::class, [
                 'label' => 'Téléphone',
                 'attr' => [
-                    'class' => 'text-gray-900 rounded-lg block w-full p-2.5 mt-4', 
+                    'class' => 'rounded-lg block w-full p-2.5 mt-4', 
                     'placeholder' => '123456789', 
                     'required' => true
                 ],
