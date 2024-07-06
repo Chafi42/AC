@@ -21,11 +21,9 @@
 
 				<!-- Image gallery -->
 				<div class="flex flex-wrap justify-center space-x-4 p-2">
-
 					{% for picture in pictures %}
 						<img src="{{ asset('assets/img/cars-users/') ~ picture.name }}" alt="{{ picture.name }}" class="w-full sm:w-64 md:w-72 h-full rounded-lg shadow-md mb-2 sm:mb-0">
 					{% endfor %}
-
 				</div>
 			</div>
 
@@ -52,8 +50,7 @@
 						<div>
 							<p>
 								<span class="font-bold">Marque:</span>
-								{{ car.brand }}
-							</p>
+								{{ car.brand }}</p>
 						</div>
 						<div>
 							<p>
@@ -77,9 +74,10 @@
 				<div class="text-center mt-4">
 					{% if app.user %}
 						<a href="{{ path('app_message_new', {'id': car.id}) }}" style="background-color: #0060A7;" class="btn text-white py-2 px-4 rounded-lg inline-flex items-center">
-							<i class="fas fa-comments mr-2"></i>
-							Contacter
+					
+							<i class="fas fa-comments mr-2">Contacter</i>
 						</a>
+						{# {{ dump(car) }} #}
 					{% else %}
 						<a href="{{ path('app_login') }}" style="background-color: #0060A7;" class="btn text-white py-2 px-4 rounded-lg inline-flex items-center">
 							<i class="fas fa-sign-in-alt mr-2"></i>
@@ -88,7 +86,6 @@
 					{% endif %}
 				</div>
 			</div>
-
 		</section>
 	</div>
 
@@ -98,23 +95,23 @@
 
 
 	 <script>
-		//   const swiper = new Swiper(".mySwiper", {
-		//     spaceBetween:1 ,
-		//     slidesPerView: 3,
-		//     freeMode: true,
-		//     watchSlidesProgress: true,
-		//     loop: true,
-		//   });
-		//   const swiper2 = new Swiper(".mySwiper2", {
-		//     spaceBetween: 10,
-		//     navigation: {
-		//       nextEl: ".swiper-button-next",
-		//       prevEl: ".swiper-button-prev",
-		//     },
-		//     thumbs: {
-		//       swiper: swiper,
-		//     },
-		//   });
-		 </script>
+				//   const swiper = new Swiper(".mySwiper", {
+				//     spaceBetween:1 ,
+				//     slidesPerView: 3,
+				//     freeMode: true,
+				//     watchSlidesProgress: true,
+				//     loop: true,
+				//   });
+				//   const swiper2 = new Swiper(".mySwiper2", {
+				//     spaceBetween: 10,
+				//     navigation: {
+				//       nextEl: ".swiper-button-next",
+				//       prevEl: ".swiper-button-prev",
+				//     },
+				//     thumbs: {
+				//       swiper: swiper,
+				//     },
+				//   });
+				 </script>
 
 {% endblock %}

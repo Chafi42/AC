@@ -2,12 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Cars;
 use App\Entity\Message;
-// use App\Entity\User;
+use App\Entity\User;
 use App\Form\MessageType;
+use App\Repository\CarsRepository;
 use App\Repository\MessageRepository;
 use App\Repository\UserRepository;
-// use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,49 +18,64 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MessageController extends AbstractController
 {
-    #[Route('/', name: 'app_message', methods: ['GET'])]
+    #[Route('/messages', name: 'app_message', methods: ['GET'])]
     public function index(MessageRepository $messageRepository, UserRepository $userRepository): Response
     {
-        $userRepository = $this->getUser();
-
+        // Récupération de l'utilisateur actuel
+        $user = $userRepository->$this->getUser();
+        // Récupération de tous les messages
+        $message = $messageRepository->findAll();
         return $this->render('message/index.html.twig', [
-            'messages' => $messageRepository->findAll(),
-            'users' => $userRepository,
+            'messages' => $message,
+            'users' => $user,
         ]);
     }
 
     #[Route('/message/{id}', name: 'app_message_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, MessageRepository $messageRepository, int $id): Response 
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, MessageRepository $messageRepository, CarsRepository $carRepository, int $id): Response
     {
         // Récupération de l'utilisateur actuel
         $sender = $this->getUser();
-    
-        // Récupération de l'utilisateur destinataire par ID
-        $receiver = $userRepository->find($id);
-    
-        // Vérification si le destinataire existe
-        if (!$receiver) {
-            throw $this->createNotFoundException('Le destinataire n\'existe pas.');
-        }
-    
+
+        // Récupération de la voiture en fonction de l'id de la voiture ($id)
+        $car = $carRepository->find($id);
+
+        // Récupération de l'utilisateur destinataire en fonction de la voituRE
+        $receiver = $car->getUser();
+
         // Création d'un nouveau message
         $message = new Message();
+
+        // Initialisation de la création du message
+        $message->setCreatedAt(new \DateTimeImmutable());
+
+        // Création du formulaire
         $form = $this->createForm(MessageType::class, $message);
+
+        // Traitement du formulaire
         $form->handleRequest($request);
-    
+
+        // Si le formulaire est soumis et valide alors...
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // Message entre l'expéditeur et le destinataire
             $message->setSender($sender);
             $message->setReceiver($receiver);
+
+            // Enregistrement du message
             $entityManager->persist($message);
+
+            // Enregistrement en base de données
             $entityManager->flush();
-    
+
             // Redirection vers la même route pour rafraîchir la conversation
-            return $this->redirectToRoute('app_message_new', ['id' => $receiver->getId()]);
+            return $this->redirectToRoute('app_message_new', ['id' => $id]);
         }
-    
+
         // Récupération des messages échangés entre l'expéditeur et le destinataire
         $messages = $messageRepository->findBySenderAndReceiver($sender, $receiver);
-    
+
+        // Affichage de la page de conversation
         return $this->render('message/new.html.twig', [
             'users' => [$sender, $receiver],
             'messages' => $messages,
@@ -67,7 +83,9 @@ class MessageController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    
+
+
+
 
 
 
@@ -87,7 +105,6 @@ class MessageController extends AbstractController
     //     return $this->render('message/show.html.twig', [
     //         'messages' => $messages,
     //         'users' => $users,
-    //         'pictures' => $pictures,
     //     ]);
     // }
 

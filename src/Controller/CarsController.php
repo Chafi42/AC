@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use App\Entity\Cars;
+use App\Entity\Message;
 use App\Entity\Picture;
 use App\Form\CarsType;
 use App\Repository\CarsRepository;
+use App\Repository\MessageRepository;
 use App\Repository\PictureRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -105,12 +107,13 @@ class CarsController extends AbstractController
     }
 
     #[Route('/car/{id}', name: 'app_cars_show', methods: ['GET'])]
-    public function show(Cars $cars, PictureRepository $pictureRepository): Response
+    public function show(Cars $cars, MessageRepository $messages, PictureRepository $pictureRepository): Response
     {
         $pictures = $pictureRepository->findBy(['car' => $cars]);
         return $this->render('cars/show.html.twig', [
             'car' => $cars,
             'pictures' => $pictures,
+            'messages' => $messages,  
         ]);
     }
 
@@ -119,7 +122,7 @@ class CarsController extends AbstractController
     {
         $form = $this->createForm(CarsType::class, $car);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
             return $this->redirectToRoute('app_cars_achat', [], Response::HTTP_SEE_OTHER);
