@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Cars;
+use App\Entity\carss;
 use App\Entity\Message;
 use App\Entity\User;
 use App\Form\MessageType;
@@ -36,56 +36,64 @@ class MessageController extends AbstractController
     {
         // Récupération de l'utilisateur actuel
         $sender = $this->getUser();
-
+        if (!$sender) {
+            throw $this->createAccessDeniedException('Vous devez être connecté pour accéder à cette page.');
+        }
+    
         // Récupération de la voiture en fonction de l'id de la voiture ($id)
         $car = $carRepository->find($id);
-
-        // Récupération de l'utilisateur destinataire en fonction de la voituRE
+        
+        // Si la voiture n'existe pas, lancer une exception
+        if (!$car) {
+            throw $this->createNotFoundException('La voiture n\'existe pas.');
+        }
+    
+        // Récupération de l'utilisateur destinataire en fonction de la voiture
         $receiver = $car->getUser();
-
+    
+        if (!$receiver) {
+            throw $this->createNotFoundException('Le destinataire n\'existe pas.');
+        }
+    
         // Création d'un nouveau message
         $message = new Message();
-
-        // Initialisation de la création du message
-        $message->setCreatedAt(new \DateTimeImmutable());
-
+    
         // Création du formulaire
         $form = $this->createForm(MessageType::class, $message);
-
+    
         // Traitement du formulaire
         $form->handleRequest($request);
-
+    
         // Si le formulaire est soumis et valide alors...
         if ($form->isSubmitted() && $form->isValid()) {
-
+            // Récupération de l'ID du destinataire à partir de la requête POST 
+            $receiverId = $request->request->get('receiver_id');
+            $receiver = $userRepository->find($receiverId);
+            
             // Message entre l'expéditeur et le destinataire
             $message->setSender($sender);
             $message->setReceiver($receiver);
-
+    
             // Enregistrement du message
             $entityManager->persist($message);
-
-            // Enregistrement en base de données
             $entityManager->flush();
-
+    
             // Redirection vers la même route pour rafraîchir la conversation
             return $this->redirectToRoute('app_message_new', ['id' => $id]);
         }
-
+    
         // Récupération des messages échangés entre l'expéditeur et le destinataire
         $messages = $messageRepository->findBySenderAndReceiver($sender, $receiver);
-
+    
         // Affichage de la page de conversation
         return $this->render('message/new.html.twig', [
             'users' => [$sender, $receiver],
             'messages' => $messages,
             'receiver' => $receiver,
             'form' => $form->createView(),
+            'car' => $car,
         ]);
     }
-
-
-
 
 
 

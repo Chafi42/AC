@@ -34,8 +34,8 @@ class Message
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
-        $this->updatedAt = new \DateTimeImmutable();
-        $this->deletedAt = new \DateTimeImmutable();
+        // $this->updatedAt = new \DateTimeImmutable();
+        // $this->deletedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
