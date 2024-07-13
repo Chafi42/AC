@@ -2,63 +2,118 @@
 
 {% block title %}Message index
 {% endblock %}
-
 {% block body %}
-	<h1>Message index</h1>
 
-	<div class="container mx-auto p-4">
-		<div class="flex flex-col lg:flex-row">
-			<div class="w-full lg:w-1/4 bg-white p-4 border rounded-lg shadow-lg">
-				<div class="mb-4">
-					<div class="flex items-center border rounded-lg overflow-hidden">
-						<span class="flex items-center justify-center px-3 border-r">
-							<i class="fas fa-search text-gray-600"></i>
-						</span>
-						<input type="text" class="w-full py-2 px-4 text-gray-700 focus:outline-none" placeholder="Search...">
-					</div>
-				</div>
-				<ul class="space-y-4">
-					<li class="flex items-center space-x-4">
-						{% for user in users %}
-							<div>
-								<div class="font-bold">
-
-									{{ user.username }}
-                               
-								</div>
-								<div class="text-sm text-gray-600">
-									<i class="fas fa-circle text-red-500"></i>
-									left 7 mins ago</div>
-							</div>
-						</li>
-					</li>
-				</ul>
-			</div>
-			<div class="w-full lg:w-3/4 bg-white p-4 border rounded-lg shadow-lg mt-4 lg:mt-0 lg:ml-4 flex flex-col">
-				<div class="flex items-center justify-between mb-4">
-					<div class="flex items-center">
-						<div class="ml-4">
-
-
-							<div class="flex-1 overflow-y-auto">
-								<ul class="space-y-4">
-									<li class="flex justify-end">
-										<div class="max-w-xs">
-											<div class="text-right text-xs text-gray-500">1</div>
-											<div class="mt-1 bg-blue-100 text-gray-800 p-2 rounded-lg inline-block">
-												{% for message in messages %}
-                                                    Message: {{ message.content }}
-            
-												{% endfor %}
-											</div>
-										</div>
-									</li>
+{# <section>
+    <div class="container mx-auto p-4" style="width: 80%;">
+        <div class="flex flex-col lg:flex-row justify-center">
+            <div class="w-full lg:w-1/4 bg-white p-4 border rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <div class="flex items-center border rounded-lg overflow-hidden">
+                        <span class="flex items-center justify-center px-3 border-r">
+                            <i class="fas fa-search text-gray-600"></i>
+                        </span>
+                        <input type="text" class="w-full py-2 px-4 text-gray-700 focus:outline-none" placeholder="Search...">
+                    </div>
+                </div>
+                <ul class="space-y-4">
+                    {% for user in users %}
+                        <li class="flex items-center space-x-4">
+                            <div>
+                                <div class="font-bold text-sm text-gray-600 flex mb-1 gap-8">
+                                    {% if app.user and app.user == user %}
+                                        <i class="fas fa-circle text-green-500"></i>
+                                        <a href="/messages/{{ user.id }}">{{ user.lastName ~ ' ' ~ user.firstName }}</a>
+                                    {% else %}
+                                        <i class="fas fa-circle text-red-500"></i>
+                                    {% endif %}
+                                    <a href="{{ path('app_message_conversation', { 'receiverId': user.id }) }}">{{ user.lastName ~ ' ' ~ user.firstName }}</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</section> #}
+	{# <section dir="rtl">
+		<div class="container mx-auto p-4">
+			<div class="flex flex-col lg:flex-row">
+				<div class="w-full lg:w-3/4 bg-white p-4 border rounded-lg shadow-lg mt-4 lg:mt-0 lg:ml-4 flex flex-col">
+					<div class="flex items-center justify-center mb-4">
+						<div class="flex items-center w-full">
+							<div class="ml-4 w-full">
+								<div class="flex-1 overflow-y-auto">
+									<ul class="space-y-4 w-full">
+										{% for message in messages %}
+											{% if message.sender == app.user %}
+												<li class="flex justify-start">
+													<div class="max-w-xs text-right w-full">
+														<div class="font-bold text-sm">{{ app.user.lastName ~ ' ' ~ app.user.firstName }}</div>
+														<div class="mt-1 bg-blue-100 text-gray-800 p-2 rounded-lg inline-block">
+															<p>{{ message.content }}</p>
+														</div>
+													</div>
+												</li>
+											{% else %}
+												<li class="flex justify-end">
+													<div class="max-w-xs text-left w-full">
+														<div class="font-bold text-sm">{{ message.sender.lastName ~ ' ' ~ message.sender.firstName }}</div>
+														<div class="mt-1 bg-gray-100 text-gray-800 p-2 rounded-lg inline-block">
+															<p>{{ message.content }}</p>
+														</div>
+													</div>
+												</li>
+											{% endif %}
+										{% endfor %}
+									</ul>
 								</div>
 							</div>
 						</div>
-					{% endfor %}
+					</div>
+					<div>
+						{{ form_start(form) }}
+						{{ form_widget(form) }}
+						<button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Send</button>
+						{{ form_end(form) }}
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</section> #}
+
+<section>
+    <div class="container mx-auto p-4">
+        <div class="flex flex-col lg:flex-row">
+            <!-- Liste des utilisateurs -->
+            <div class="w-full lg:w-1/4 bg-white p-4 border rounded-lg shadow-lg">
+				<ul class="space-y-4">
+					{% for user in users %}
+						<li class="flex items-center space-x-4">
+							<div>
+								<div class="font-bold text-sm text-gray-600 flex mb-1 gap-8">
+									{% if app.user and app.user == user %}
+										<i class="fas fa-circle text-green-500"></i>
+										<a href="{{ path('app_message_conversation', { 'receiverId': user.id }) }}" class="user-link" data-id="{{ user.id }}">{{ user.lastName ~ ' ' ~ user.firstName }}</a>
+									{% else %}
+										<i class="fas fa-circle text-red-500"></i>
+									{% endif %}
+									<a href="{{ path('app_message_conversation', { 'receiverId': user.id }) }}" class="user-link" data-id="{{ user.id }}">{{ user.lastName ~ ' ' ~ user.firstName }}</a>
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
 {% endblock %}
