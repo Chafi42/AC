@@ -7,95 +7,111 @@ use App\Form\CarsType;
 use App\Form\ProfilType;
 use App\Repository\CarsRepository;
 use App\Repository\PictureRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ProfilController extends AbstractController
 {
-    // #[Route('/profil', name: 'app_profil')]
-    // public function index(UserRepository $users, Request $request, EntityManagerInterface $entityManager): Response
-    // {
-    //     // /**
-    //     //  * @var User $changeProfile
-    //     //  */
-    //     // // $users = $this->getUser();
-
-    //     // // $form = $this->createForm(RegistrationFormType::class, $users);
-    //     // // $form->handleRequest($request);
-
-    //     // // if ($form->isSubmitted() && $form->isValid()) {
-    //     // //     $entityManager->flush();
-    //     // //     $this->addFlash('success', 'Profil mis à jour');
-    //     // //     $this->redirectToRoute('profil/profil.html.twig');
-    //     // // }
-
-    //     return $this->render('profil/profil.html.twig');
-    // }
-
-
     #[Route('/profil', name: 'app_profil')]
-    public function index(UserRepository $users, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Get the currently logged-in user
+        // Obtenir l'utilisateur actuellement connecté
         $user = $this->getUser();
-
-        // Create the form
         $form = $this->createForm(ProfilType::class, $user);
         $form->handleRequest($request);
 
-        // Process the form submission
+        // Traiter la soumission du formulaire
         if ($form->isSubmitted() && $form->isValid()) {
+            // Sauvegarder les modifications dans la base de données
             $entityManager->flush();
-            $this->addFlash('success', 'Profil mis à jour');
-
+            // $this->addFlash('success', 'Profil mis à jour');
+            // Rediriger l'utilisateur vers la page de profil
             return $this->redirectToRoute('app_profil');
         }
 
-        // Render the form in the template
+        // Afficher le formulaire
         return $this->render('profil/profil.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
-
-    // #[Route('/annonce', name: 'app_annonce')]
-    // public function annonce(Request $request, Cars $car, EntityManagerInterface $entityManager): Response
-    // {
-    //     // Get the currently logged-in user
-    //     $car = $this->getUser();
-    //     $form = $this->createForm(CarsType::class, $car);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $entityManager->flush();
-    //         $this->addFlash('success', 'Annonce ajoutée');
-    //         return $this->redirectToRoute('app_annonce');
-    //     }
-
-    //     return $this->render('profil/anouncemment.html.twig', [
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
-
-
-    #[Route('/annonce', name: 'app_cars_achat', methods: ['GET', 'POST'])]
-    public function annonce(CarsRepository $carsRepository, Request $request, PictureRepository $pictureRepository): Response
+    
+    #[Route('/profil/delete', name: 'app_profil_delete')]
+    public function supp(EntityManagerInterface $entityManager): Response
     {
-        $cars = $carsRepository->findBy(['user' => $this->getUser()]);
-
-        if (empty($cars)) {
-            $cars = $carsRepository->findAll();
+        // Get the currently logged-in user
+        $user = $this->getUser();
+        if (!$user) {
+            // Handle the case where no user is logged in
+            $this->addFlash('error', 'Aucun utilisateur connecté.');
+            return $this->redirectToRoute('app_home');
         }
+    
+        // Remove the user
+        $entityManager->remove($user);
+        $entityManager->flush();
+    
+        // Add a flash message to indicate that the account has been deleted
+        $this->addFlash('success', 'Compte supprimé.');
+    
+        // Redirect to the home page
+        return $this->redirectToRoute('app_home');
+    }
 
-        $pictures = $pictureRepository->findAll();
 
-        return $this->render('cars/achat.html.twig', [
+    #[Route('/annonce', name: 'app_annonce', methods: ['GET', 'POST'])]
+    public function annonce(CarsRepository $carsRepository): Response
+    {
+        // Obtenir l'utilisateur actuellement connecté
+        $user = $this->getUser();
+        // $carsRepository par id de l'utilisateur
+        $cars = $carsRepository->findBy(['user' => $user]);
+
+        // Afficher le formulaire
+        return $this->render('profil/anouncemment.html.twig', [
             'cars' => $cars,
-            'pictures' => $pictures,
         ]);
+    }
+
+    #[Route('/annonce/{id}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
+
+    public function edit(Request $request, Cars $car, EntityManagerInterface $entityManager): Response
+    {
+        // Créer le formulaire
+        $form = $this->createForm(CarsType::class, $car);
+        // Gérer la soumission du formulaire
+        $form->handleRequest($request);
+        // Traiter la soumission du formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Sauvegarder les modifications dans la base de données
+            $entityManager->flush();
+            // Ajouter un message flash pour confirmer la mise à jour de l'annonce
+            $this->addFlash('success', 'Annonce modifiée');
+            // Rediriger l'utilisateur vers la page des annonces
+            return $this->redirectToRoute('app_annonce');
+        }
+        // Afficher le formulaire
+        return $this->render('profil/edit.html.twig', [
+            'car' => $car,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/annonce/{id}/delete', name: 'app_annonce_delete')]
+    public function delete(Cars $car , EntityManagerInterface $entityManager): Response
+    {
+        
+        // Supprimer la voiture
+        $entityManager->remove($car);
+        $entityManager->flush();
+
+        // Ajouter un message flash pour indiquer que l'annonce a été supprimée
+        $this->addFlash('success', 'Annonce supprimée');
+
+        // Rediriger vers la liste des annonces ou une autre route après la suppression
+        return $this->redirectToRoute('app_annonce');
     }
 }

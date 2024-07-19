@@ -21,7 +21,6 @@
 
 
 
-						{# {{ dump(app.user) }} #}
 							{% for message in messages %}
 								<li class="flex {% if message.sender.lastName == app.user.lastName %}justify-end{% else %}justify-start{% endif %}">
 									<div class="max-w-xs">
@@ -40,22 +39,10 @@
 					</div>
 
 
-					{# <form id="messageForm" action="{{ path('app_message_new', {'id': car.id}) }}" method="POST">
-						<div class="mt-4">
-							<input type="hidden" name="receiver_id" value="{{ receiver.id }}">
-							<div class="flex items-center border rounded-lg overflow-hidden">
-								<input type="text" name="message[content]" class="w-full py-2 px-4" placeholder="Message...">
-								<button type="submit" class="flex items-center justify-center px-3 border-l text-white bg-blue-500">Envoyer</button>
-								{{ dump(car.id) }}
-							</div>
-						</div>
-										</form>
-									</div> #}
-
 
 					{{form_start(form)}}
 
-					{{ form_row(form.content) }}
+					{{ form_row(form.content) }} 
 					{{ form_row(form.envoyer) }}
 
 					{{ form_end(form) }}

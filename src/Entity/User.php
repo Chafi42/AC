@@ -53,11 +53,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Cars>
      */
-    #[ORM\OneToMany(targetEntity: Cars::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Cars::class, mappedBy: 'user', cascade: ['remove'])]
     private Collection $cars;
-
-
-
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -67,9 +64,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?\DateTimeImmutable $deletedAt = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $profilePicture = null;
 
     /**
      * @var Collection<int, Message>
@@ -203,14 +197,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBirthDate(): ?\DateTimeImmutable
+    public function getBirthDate(): ?\DateTime
     {
         return $this->birthDate;
     }
 
     // Modification birth Date avant il y avait jj/mm/aaaa 
     // maintenant il y a jj-mm-aaaa
-    public function setBirthDate(\DateTimeImmutable $birthDate): static
+    public function setBirthDate(\DateTime $birthDate): static
     {
         $this->birthDate = $birthDate;
 

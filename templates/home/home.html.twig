@@ -56,30 +56,30 @@
 			<div class="py-8 px-4 mx-auto max-w-2xl lg:py-16 flex justify-center items-center">
 
 
-				<form action="{{ path('app_cars_achat') }}" method="post">
-					<div class="grid gap-4 sm:grid-cols-2 sm:gap-6 flex justify-center items-center">
+				<form action="{{ path('app_cars_achat') }}" class="text-white" method="post">
+					<div class="grid gap-4 sm:grid-cols-2 sm:gap-6  mb-4 flex justify-center items-center">
 						<div class="sm:col-span-2">
-							<label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
-							<input type="text" name="type" id="type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Sport">
+							<label for="type" class="dark:text-white">Type</label>
+							<input type="text" name="type" id="type" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="Sport">
 						</div>
 						<div class="w-full">
-							<label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Marque</label>
-							<input type="text" name="brand" id="brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Jaguar">
+							<label for="brand" class="dark:text-white">Marque</label>
+							<input type="text" name="brand" id="brand" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="Jaguar">
 						</div>
 						<div class="w-full">
-							<label for="model" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Model</label>
-							<input type="text" name="model" id="model" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="XJ14">
+							<label for="model" class="dark:text-white">Model</label>
+							<input type="text" name="model" id="model" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="XJ14">
 						</div>
 						<div>
-							<label for="mileage" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kilométrages</label>
-							<input type="text" name="mileage" id="mileage" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="150 000 kms">
+							<label for="mileage" class="dark:text-white">Kilométrages</label>
+							<input type="text" name="mileage" id="mileage" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="150 000 kms">
 						</div>
 						<div>
-							<label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-							<input type="text" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="50 000€">
+							<label for="price" class="dark:text-white">Price</label>
+							<input type="text" name="price" id="price" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="50 000€">
 						</div>
 					</div>
-					<button type="submit" class="w-full px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+					<button type="submit" class=" w-full py-4 sm:mt-6 text-2xl text-white">
 						Recherchez
 					</button>
 				</form>

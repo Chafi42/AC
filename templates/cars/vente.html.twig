@@ -1,28 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Cars
-{% endblock %}
+{% block title %}Vendre{% endblock %}
+
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('assets/css/vente.css') }}">
+<style>
+	.form-control,
+	.form-control-file {
+		color: black;
+	}
+</style>
 {% endblock %}
 {% block body %}
 
-	<h1 class="text-center mt-3">À VOTRE VENTE</h1>
 
-	<div class="container mt-5">
-		{{ form_start(form) }}
-		 <div class="form-group">
-            {{ form_label(form) }}
-            {{ form_widget(form) }}
-            {{ form_errors(form) }}
-        </div>
-		<button type="submit" class="btn btn-primary">Submit</button>
-		{{ form_end(form) }}
+
+
+
+<section class="shadow-md overflow-hidden w-full flex flex-col items-center" style="background-color: #0060A7;">
+	<h2 class="text-xl text-white font-bold py-4">Détails</h2>
+	{{ form_start(form, {'attr': {'class': 'w-full text-white'}}) }}
+
+	<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4 w-full">
+		<div class="flex flex-col items-center">
+			<div>
+				{{ form_label(form.type, 'Type', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.type, {'attr': {'class': 'form-control w-full px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.type) }}
+			</div>
+		</div>
+
+		<div class="flex flex-col items-center">
+			<div>
+				{{ form_label(form.brand, 'Marque', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.brand, {'attr': {'class': 'form-control w-full px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.brand) }}
+			</div>
+		</div>
+
+		<div class="flex flex-col items-center">
+			<div>
+				{{ form_label(form.model, 'Model', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.model, {'attr': {'class': 'form-control w-full px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.model) }}
+			</div>
+		</div>
+
+		<div class="flex flex-col items-center">
+			<div>
+				{{ form_label(form.year, 'Année', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.year, {'attr': {'class': 'form-control px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.year) }}
+			</div>
+		</div>
+
+		<div class="flex flex-col items-center">
+			<div>
+				{{ form_label(form.mileage, 'Kilométrage', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.mileage, {'attr': {'class': 'form-control w-full px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.mileage) }}
+			</div>
+		</div>
+		<div class="flex flex-col items-center">
+			<div>
+				{{ form_label(form.fuel, 'Carburant', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.fuel, {'attr': {'class': 'form-control w-full px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.fuel) }}
+			</div>
+		</div>
+		<div class="flex flex-col items-center">
+			<div>
+				{{ form_label(form.gearBox, 'Boite à vitesse', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.gearBox, {'attr': {'class': 'form-control w-full px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.gearBox) }}
+			</div>
+		</div>
+		<div class="flex flex-col items-center">
+			<div>
+				{{ form_label(form.price, 'Prix', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.price, {'attr': {'class': 'form-control w-full px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.price) }}
+			</div>
+		</div>
 	</div>
 
+	<div class="flex flex-col items-center w-full">
+		<div class="flex flex-col sm:flex-row w-full space-x-0 sm:space-x-4">
+			<div class="flex flex-col items-center w-full sm:w-1/2">
+				{{ form_label(form.description, 'Description', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.description, {'attr': {'class': 'form-control px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.description) }}
+			</div>
+			<div class="flex flex-col items-center w-full sm:w-1/2">
+				{{ form_label(form.picture, 'Picture', {'label_attr': {'class': 'text-center block font-bold mb-2'}}) }}
+				{{ form_widget(form.picture, {'attr': {'class': 'form-control-file px-3 py-2 border border-gray-300 rounded-lg'}}) }}
+				{{ form_errors(form.picture) }}
+			</div>
+		</div>
+	</div>
+	<div class="flex items-center justify-center w-full">
+		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold my-4 py-2 px-4 rounded">
+			Vendre
+		</button>
+	</div>
+	{{ form_end(form) }}
+</section>
 
-        </section>
-    </div>
 
-	
+
+
+
 {% endblock %}
+

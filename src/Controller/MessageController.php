@@ -23,11 +23,9 @@ class MessageController extends AbstractController
     #[Route('/messages', name: 'app_message', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        // Récupération de l'utilisateur connecté
+        // 
         $currentUser = $this->getUser();
-        // Récupération de tous les utilisateurs
         $users = $userRepository->findAll();
-        // Filtrage des utilisateurs pour ne pas afficher l'utilisateur connecté
         $filteredUsers = array_filter($users, function ($user) use ($currentUser) {
             return $user !== $currentUser;
         });
