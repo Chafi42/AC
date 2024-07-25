@@ -30,7 +30,7 @@ class CarsController extends AbstractController
 
         if ($request->isMethod('POST')) {
             $model = $request->request->get('model');
-            $type = $request->request->get('type');
+            $type = $request->request->get('typen');
             $brand = $request->request->get('brand');
             $mileage = $request->request->get('mileage');
             $price = $request->request->get('price');

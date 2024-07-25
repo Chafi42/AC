@@ -22,10 +22,4 @@ class HomeController extends AbstractController
             'pictures' => $pictures,
         ]);
     }
-
-    #[Route('/chat/{id}', name: 'app_chat')]
-    public function chat(): Response
-    {
-        return $this->render('cars/chat.html.twig',);
-    }
 }

@@ -6,13 +6,16 @@ use App\Entity\Cars;
 use App\Form\CarsType;
 use App\Form\ProfilType;
 use App\Repository\CarsRepository;
+use App\Repository\MessageRepository;
 use App\Repository\PictureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ProfilController extends AbstractController
 {
@@ -39,26 +42,59 @@ class ProfilController extends AbstractController
         ]);
     }
     
+    // #[Route('/profil/delete', name: 'app_profil_delete')]
+    // public function supp(EntityManagerInterface $entityManager): Response
+    // {
+    //     // Get the currently logged-in user
+    //     $user = $this->getUser();
+    //     if (!$user) {
+    //         // Handle the case where no user is logged in
+    //         $this->addFlash('error', 'Aucun utilisateur connecté.');
+    //         return $this->redirectToRoute('app_logout');
+    //     }
+    
+    //     // Remove the user
+    //     $entityManager->remove($user);
+    //     $entityManager->flush();
+    
+    //     // Add a flash message to indicate that the account has been deleted
+    //     $this->addFlash('success', 'Compte supprimé.');
+    
+    //     // Redirect to the home page
+    //     return $this->redirectToRoute('app');
+    // }
+
     #[Route('/profil/delete', name: 'app_profil_delete')]
-    public function supp(EntityManagerInterface $entityManager): Response
+    public function supp(EntityManagerInterface $entityManager, MessageRepository $messageRepository, TokenStorageInterface $tokenStorage, SessionInterface $session): Response
     {
         // Get the currently logged-in user
         $user = $this->getUser();
         if (!$user) {
             // Handle the case where no user is logged in
             $this->addFlash('error', 'Aucun utilisateur connecté.');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app');
         }
-    
+
+        // Get the messages receive by the user
+        $messages = $messageRepository->findBy(['receiver' => $user]);
+        // Remove the messages
+        foreach ($messages as $message) {
+            $entityManager->remove($message);
+        }
+
+        // Invalidate the session and remove the security token
+        $tokenStorage->setToken(null);
+        $session->invalidate();
+
         // Remove the user
         $entityManager->remove($user);
         $entityManager->flush();
-    
+
         // Add a flash message to indicate that the account has been deleted
         $this->addFlash('success', 'Compte supprimé.');
-    
+
         // Redirect to the home page
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app');
     }
 
 

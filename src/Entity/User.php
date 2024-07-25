@@ -68,7 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Message>
      */
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'receiver')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'sender', cascade: ['remove'])]
     private Collection $messages;
 
     /**
