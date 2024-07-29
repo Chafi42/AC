@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     {
         $cars = $carsRepository->findAll();
         $pictures = $pictureRepository->findAll();
-        // dd($picture);
+
         return $this->render('home/home.html.twig', [
             'cars' => $cars,
             'pictures' => $pictures,

@@ -25,17 +25,18 @@ class CarsController extends AbstractController
     #[Route('/achat', name: 'app_cars_achat', methods: ['GET', 'POST'])]
     public function index(CarsRepository $carsRepository, Request $request, PictureRepository $pictureRepository): Response
     {
-        // Initialiser un tableau vide pour les voitures
+        // Initialiser un tableau vide de voitures
         $cars = [];
 
         if ($request->isMethod('POST')) {
             $model = $request->request->get('model');
-            $type = $request->request->get('typen');
+            $type = $request->request->get('type');
             $brand = $request->request->get('brand');
             $mileage = $request->request->get('mileage');
             $price = $request->request->get('price');
             $fuel = $request->request->get('fuel');
-        
+            $year = $request->request->get('year');
+
             // Construire un tableau de critères de recherche dynamiquement
             $criteria = [];
             if ($model) {
@@ -55,6 +56,10 @@ class CarsController extends AbstractController
             }
             if ($fuel) {
                 $criteria['fuel'] = $fuel;
+            }
+
+            if ($year) {
+                $criteria['year'] = $year;
             }
         
             $cars = $carsRepository->findBy($criteria);

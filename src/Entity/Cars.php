@@ -72,6 +72,11 @@ class Cars
 
     }
 
+    public function __toString()
+    {
+        return $this->brand . ' ' . $this->model;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -23,30 +23,32 @@ class MessageController extends AbstractController
     #[Route('/messages', name: 'app_message', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        // 
         $currentUser = $this->getUser();
         $users = $userRepository->findAll();
-        $filteredUsers = array_filter($users, function ($user) use ($currentUser) {
-            return $user !== $currentUser;
-        });
-
+        
+        $filteredUsers = [];
+        
+        // Parcours chaque utilisateur et ajoute ceux qui ne sont pas le $currentUser au tableau filtré
+        foreach ($users as $user) {
+            if ($user !== $currentUser) {
+                $filteredUsers[] = $user;
+            }
+        }
+    
         return $this->render('message/index.html.twig', [
             'users' => $filteredUsers,
         ]);
     }
+    
 
     #[Route('/messages/{receiverId}', name: 'app_message_conversation', methods: ['GET', 'POST'])]
     public function conversation(int $receiverId, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, MessageRepository $messageRepository): Response
     {
-        // Récupération de l'utilisateur connecté
         $currentUser = $this->getUser();
-        // Récupération de tous les utilisateurs
         $users = $userRepository->findAll();
-        // Filtrage des utilisateurs pour ne pas afficher l'utilisateur connecté
         $filteredUsers = array_filter($users, function ($user) use ($currentUser) {
             return $user !== $currentUser;
         });
-        // Récupération de l'utilisateur connecté
         $sender = $this->getUser();
         $receiver = $userRepository->find($receiverId);
 
@@ -69,10 +71,8 @@ class MessageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Message entre l'expéditeur et le destinataire
             $message->setSender($sender);
             $message->setReceiver($receiver);
-
             $message->setCreatedAt(new \DateTimeImmutable());
             $message->setUpdatedAt(new \DateTimeImmutable());
 
@@ -95,35 +95,31 @@ class MessageController extends AbstractController
     }
 
     #[Route('/message/{id}', name: 'app_message_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, MessageRepository $messageRepository, CarsRepository $carRepository, int $id): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MessageRepository $messageRepository, CarsRepository $carRepository, int $id): Response
     {
-        // Récupération de l'utilisateur actuel
+        // Récupération de l'utilisateur actuel acheteur ou vendeur de la voiture
         $sender = $this->getUser();
 
-        // Récupération de la voiture en fonction de l'id de la voiture ($id)
         $car = $carRepository->find($id);
 
-        // Récupération de l'utilisateur destinataire en fonction de la voiture
         $receiver = $car->getUser();
-        // Création d'un nouveau message
-        $message = new Message();
 
-        // Création du formulaire
+        $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
 
         // Traitement du formulaire
         $form->handleRequest($request);
 
-        // Si le formulaire est soumis et valide alors...
         if ($form->isSubmitted() && $form->isValid()) {
 
             // Message entre l'expéditeur et le destinataire
             $message->setSender($sender);
             $message->setReceiver($receiver);
+           
             $message->setUpdatedAt(new \DateTimeImmutable());
             $message->setCreatedAt(new \DateTimeImmutable());
             $message->setDeletedAt(new \DateTimeImmutable());
-            // Enregistrement du message
+            
             $entityManager->persist($message);
             $entityManager->flush();
 
@@ -134,7 +130,6 @@ class MessageController extends AbstractController
         // Récupération des messages échangés entre l'expéditeur et le destinataire
         $messages = $messageRepository->findBySenderAndReceiver($sender, $receiver);
 
-        // Affichage de la page de conversation
         return $this->render('message/new.html.twig', [
             'users' => [$sender, $receiver],
             'messages' => $messages,

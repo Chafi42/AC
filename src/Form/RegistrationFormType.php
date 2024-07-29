@@ -23,12 +23,12 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'attr' => [
-                    'class' => 'rounded-lg block w-full p-2.5 mt-4', 
+                    'class' => ' rounded-lg block w-full p-2.5 mt-4', 
                     'placeholder' => 'name@company.com', 
                     'required' => true
                 ],
                 'label_attr' => [
-                    'class' => 'mt-4',
+                    'class' => 'text-white mt-4',
                 ],
             ])
             ->add('password', PasswordType::class, [
@@ -50,7 +50,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
                 'label_attr' => [
-                    'class' => 'mt-4',
+                    'class' => 'text-white mt-4',
                 ],
             ])
             ->add('lastName', TextType::class, [
@@ -61,7 +61,7 @@ class RegistrationFormType extends AbstractType
                     'required' => true
                 ],
                 'label_attr' => [
-                    'class' => 'mt-4',
+                    'class' => 'text-white mt-4',
                 ],
             ])
             ->add('firstName', TextType::class, [
@@ -72,7 +72,7 @@ class RegistrationFormType extends AbstractType
                     'required' => true
                 ],
                 'label_attr' => [
-                    'class' => 'mt-4',
+                    'class' => 'text-white mt-4',
                 ],
             ])
             ->add('age', IntegerType::class, [
@@ -83,7 +83,7 @@ class RegistrationFormType extends AbstractType
                     'required' => true
                 ],
                 'label_attr' => [
-                    'class' => 'mt-4',
+                    'class' => 'text-white mt-4',
                 ],
             ])
             ->add('birthDate', DateType::class, [
@@ -94,7 +94,7 @@ class RegistrationFormType extends AbstractType
                     'required' => true
                 ],
                 'label_attr' => [
-                    'class' => 'mt-4',
+                    'class' => 'text-white mt-4',
                 ],
                 'format' => 'yyyy-MM-dd',
             ])
@@ -106,7 +106,7 @@ class RegistrationFormType extends AbstractType
                     'required' => true
                 ],
                 'label_attr' => [
-                    'class' => 'mt-4',
+                    'class' => 'text-white mt-4',
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
@@ -116,7 +116,7 @@ class RegistrationFormType extends AbstractType
                 ],
                 'label' => "J'ai lu et j'accepte la cgu.",
                 'label_attr' => [
-                    'class' => 'mt-4',
+                    'class' => 'text-white mt-4',
                     'style' => 'margin: 10px; padding: 5px;'
                 ],
                 'row_attr' => [

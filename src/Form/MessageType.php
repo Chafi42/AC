@@ -20,7 +20,6 @@ class MessageType extends AbstractType
                 'attr' => [
                     'class' => 'bg-gray-100 w-full p-2 rounded-lg text-center my-4',
                 ],
-
             ])
             ->add('envoyer', SubmitType::class, [
                 'label' => 'Envoyer',
@@ -30,23 +29,6 @@ class MessageType extends AbstractType
 
                 ],
             ]);
-        // ->add('createdAt', null, [
-        //     'widget' => 'single_text',
-        // ])
-        // ->add('updatedAt', null, [
-        //     'widget' => 'single_text',
-        // ])
-        // ->add('deletedAt', null, [
-        //     'widget' => 'single_text',
-        // ])
-        // ->add('receiver', EntityType::class, [
-        //     'class' => User::class,
-        //     'choice_label' => 'id',
-        // ])
-        // ->add('sender', EntityType::class, [
-        //     'class' => User::class,
-        //     'choice_label' => 'id',
-        // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

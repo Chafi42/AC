@@ -21,11 +21,11 @@
         {{ form_start(form) }}
             <div>
             {{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'block mb-2 text-sm font-medium mx-2'}}) }}
-            {{ form_widget(form.email, {'attr': {'class': 'shadow-sm border border-gray-300 text-sm rounded-lg block w-full p-2.5', 'required': true}}) }}
+            {{ form_widget(form.email, {'attr': {'class': 'shadow-sm text-black border border-gray-300 text-sm rounded-lg block w-full p-2.5', 'required': true}}) }}
             </div>
             <div>
             {{ form_label(form.subject, 'Objet', {'label_attr': {'class': 'block mb-2 text-sm font-medium px-2'}}) }}
-            {{ form_widget(form.subject, {'attr': {'class': 'block p-3 w-full text-sm rounded-lg border border-gray-300 shadow-sm', 'required': true}}) }}
+            {{ form_widget(form.subject, {'attr': {'class': 'block text-black p-3 w-full text-sm rounded-lg border border-gray-300 shadow-sm', 'required': true}}) }}
             </div>
             <div class="sm:col-span-2">
             {{ form_label(form.message, 'Message', {'label_attr': {'class': 'block mb-2 text-sm font-medium px-2'}}) }}

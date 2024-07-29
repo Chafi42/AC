@@ -42,27 +42,6 @@ class ProfilController extends AbstractController
         ]);
     }
     
-    // #[Route('/profil/delete', name: 'app_profil_delete')]
-    // public function supp(EntityManagerInterface $entityManager): Response
-    // {
-    //     // Get the currently logged-in user
-    //     $user = $this->getUser();
-    //     if (!$user) {
-    //         // Handle the case where no user is logged in
-    //         $this->addFlash('error', 'Aucun utilisateur connecté.');
-    //         return $this->redirectToRoute('app_logout');
-    //     }
-    
-    //     // Remove the user
-    //     $entityManager->remove($user);
-    //     $entityManager->flush();
-    
-    //     // Add a flash message to indicate that the account has been deleted
-    //     $this->addFlash('success', 'Compte supprimé.');
-    
-    //     // Redirect to the home page
-    //     return $this->redirectToRoute('app');
-    // }
 
     #[Route('/profil/delete', name: 'app_profil_delete')]
     public function supp(EntityManagerInterface $entityManager, MessageRepository $messageRepository, TokenStorageInterface $tokenStorage, SessionInterface $session): Response
