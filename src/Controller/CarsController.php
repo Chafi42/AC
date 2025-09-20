@@ -23,59 +23,35 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class CarsController extends AbstractController
 {
     #[Route('/achat', name: 'app_cars_achat', methods: ['GET', 'POST'])]
-    public function index(CarsRepository $carsRepository, Request $request, PictureRepository $pictureRepository): Response
-    {
-        // Initialiser un tableau vide de voitures
-        $cars = [];
+public function index(CarsRepository $carsRepository, Request $request): Response
+{
+    $cars = [];
 
-        if ($request->isMethod('POST')) {
-            $model = $request->request->get('model');
-            $type = $request->request->get('type');
-            $brand = $request->request->get('brand');
-            $mileage = $request->request->get('mileage');
-            $price = $request->request->get('price');
-            $fuel = $request->request->get('fuel');
-            $year = $request->request->get('year');
-
-            // Construire un tableau de critères de recherche dynamiquement
-            $criteria = [];
-            if ($model) {
-                $criteria['model'] = $model;
-            }
-            if ($type) {
-                $criteria['type'] = $type;
-            }
-            if ($brand) {
-                $criteria['brand'] = $brand;
-            }
-            if ($mileage) {
-                $criteria['mileage'] = $mileage;
-            }
-            if ($price) {
-                $criteria['price'] = $price;
-            }
-            if ($fuel) {
-                $criteria['fuel'] = $fuel;
-            }
-
-            if ($year) {
-                $criteria['year'] = $year;
-            }
-        
-            $cars = $carsRepository->findBy($criteria);
-        }
-    
-        if (empty($cars)) {
-            $cars = $carsRepository->findAll();
-        }
-    
-        $pictures = $pictureRepository->findAll();
-    
-        return $this->render('cars/achat.html.twig', [
-            'cars' => $cars,
-            'pictures' => $pictures,
+    if ($request->isMethod('POST')) {
+        // Récupération des critères envoyés par le formulaire
+        $criteria = array_filter([
+            'model'   => $request->request->get('model'),
+            'type'    => $request->request->get('type'),
+            'brand'   => $request->request->get('brand'),
+            'mileage' => $request->request->get('mileage'),
+            'price'   => $request->request->get('price'),
+            'fuel'    => $request->request->get('fuel'),
+            'year'    => $request->request->get('year'),
         ]);
+
+        $cars = $carsRepository->findBy($criteria);
     }
+
+    // Si aucun résultat, afficher toutes les voitures
+    if (empty($cars)) {
+        $cars = $carsRepository->findAll();
+    }
+
+    return $this->render('cars/achat.html.twig', [
+        'cars' => $cars,
+    ]);
+}
+
     #[Route('/vente', name: 'app_cars_vente', methods: ['GET', 'POST'])]
     public function new(Request $request, SluggerInterface $slugger, PictureRepository $picture, EntityManagerInterface $entityManager): Response
     {

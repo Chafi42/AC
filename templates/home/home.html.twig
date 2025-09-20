@@ -1,164 +1,71 @@
+{# templates/home/home.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Home
+  Auto Exchange - Trouvez votre voiture idéale
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{ asset('assets/css/home.css') }}"/>
-
+  <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}" />
 {% endblock %}
 
 {% block body %}
+  <div class="flex flex-col min-h-screen">
+    {# HERO #}
+    <section class="relative h-[600px] flex items-center justify-center text-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.6)), url('{{ asset('assets/img/accueil/bg-home.png') }}');">
+      <div class="container mx-auto px-4 text-white">
+        <h1 class="text-4xl md:text-6xl font-black mb-4">Trouvez votre voiture idéale</h1>
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">Découvrez une large sélection de véhicules proposés par des vendeurs de confiance. Achetez, vendez ou échangez en toute sérénité.</p>
+        <div class="max-w-2xl mx-auto">
+          <form action="{{ path('app_cars_achat') }}" method="get" class="flex items-center bg-white dark:bg-background-dark gap-4 rounded-lg shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#DADCE1" height="25" width="25" class="ml-4" version="1.1" id="Layer_1" viewBox="0 0 512 512" xml:space="preserve">
+              <g>
+                <g>
+                  <path d="M281.1,0c-127.318,0-230.9,103.582-230.9,230.9c0,45.12,13.019,87.25,35.483,122.853l-70.654,70.654    c-20.039,20.039-20.039,52.527,0,72.564c20.039,20.039,52.527,20.039,72.564,0l70.654-70.654    c35.605,22.464,77.735,35.483,122.853,35.483c127.318,0,230.9-103.582,230.9-230.9S408.42,0,281.1,0z M281.1,410.489    c-99.025,0-179.589-80.564-179.589-179.589S182.074,51.311,281.1,51.311S460.689,131.875,460.689,230.9    S380.127,410.489,281.1,410.489z" />
+                </g>
+              </g>
+            </svg>
+            <input type="text" name="q" placeholder="Recherchez une voiture..." class="w-full h-14 bg-transparent border-none focus:ring-0 text-gray-800 dark:text-gray-200 placeholder-gray-400" />
+            <a href="{{ path('app_cars_achat') }}" class="bg-[#3093D9] text-white font-bold px-8 py-4 rounded-lg text-lg">Rechercher</a>
+          </form>
+        </div>
+      </div>
+    </section>
 
-	<section>
+    {# ANNONCES EN VEDETTE #}
+    <section class="py-16 md:py-24 bg-background-light dark:bg-background-dark">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12 text-[#222222]">Véhicules en vedette</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {% for car in cars %}
+            <a href="{{ path('app_cars_show', { id: car.id }) }}" class="block group">
+              <div class="bg-white dark:bg-background-dark/50 rounded-xl overflow-hidden shadow-md group-hover:shadow-xl transition-shadow duration-300">
+                {% if car.pictures is not empty %}
+                  <img src="{{ asset('assets/img/cars-users/' ~ car.pictures|first.name) }}" alt="{{ car.brand }} {{ car.model }} ({{ car.year }})" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300" />
+                {% else %}
+                  <img src="{{ asset('assets/img/placeholder-car.jpg') }}" alt="Image non disponible" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300" />
+                {% endif %}
 
-		<div id="default-carousel" class="relative w-full" data-carousel="slide">
-			<div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                <div class="p-6">
+                  <h3 class="font-bold text-lg text-[#222222] mb-2">{{ car.brand }} {{ car.model }} - {{ car.year }}</h3>
+                  <p class="text-primary font-bold mt-2 text-[#3093D9]">{{ car.price|number_format(0, ',', ' ') }} €</p>
+                </div>
+              </div>
+            </a>
+          {% else %}
+            <p class="text-center text-gray-500">Aucun véhicule disponible pour le moment.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
 
-				{% for car in cars %}
-					{% for picture in pictures %}
-
-
-						<a href="{{ path('app_cars_show', {'id': car.id}) }}">
-							<div class="hidden duration-700 ease-in-out bg-cover" data-carousel-item>
-
-
-								<img src="{{ asset('assets/img/cars-users/' ~ picture.name) }}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="{{picture.name}}">
-							</div>
-						</a>
-					{% endfor %}
-				{% endfor %}
-				<!-- Item 2 -->
-
-				<!-- Slider controls -->
-				<button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-					<span class="inline-flex items-center justify-center w-10 h-10 rounded-full" style="background-color: #0060A7;">
-						<svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 6 10">
-							<path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-						</svg>
-						<span class="sr-only">Previous</span>
-					</span>
-				</button>
-				<button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-					<span class="inline-flex items-center justify-center w-10 h-10 rounded-full" style="background-color: #0060A7;">
-						<svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 6 10">
-							<path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-						</svg>
-						<span class="sr-only">Next</span>
-					</span>
-				</button>
-			</div>
-
-		</section>
-
-		<section class="bg-white dark:bg-gray-900" style="background-color: #0060A7;">
-			<div class="py-8 px-4 mx-auto max-w-2xl lg:py-16 flex justify-center items-center">
-
-
-				<form action="{{ path('app_cars_achat') }}" class="" method="post">
-					<div class="grid gap-4 sm:grid-cols-2 sm:gap-6  mb-4 flex justify-center items-center">
-						<div class="sm:col-span-2">
-							<label for="type" class="text-white">Type</label>
-							<input type="text" name="typen" id="type" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="Sport">
-						</div>
-						<div class="w-full">
-							<label for="brand" class="text-white">Marque</label>
-							<input type="text" name="brand" id="brand" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="Jaguar">
-						</div>
-						<div class="w-full">
-							<label for="model" class="text-white">Model</label>
-							<input type="text" name="model" id="model" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="XJ14">
-						</div>
-						<div>
-							<label for="mileage" class="text-white">Kilométrages</label>
-							<input type="text" name="mileage" id="mileage" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="150 000 kms">
-						</div>
-						<div>
-							<label for="price" class="text-white">Price</label>
-							<input type="text" name="price" id="price" class="text-sm rounded-lg  w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white " placeholder="50 000€">
-						</div>
-					</div>
-					<button type="submit" class=" w-full py-4 sm:mt-6 text-2xl text-white">
-						Recherchez
-					</button>
-				</form>
-			</div>
-		</section>
-
-		<section id="typeCars" class="text-center">
-
-			<div class="text-center my-8">
-				<h2 class="text-4xl font-bold">Type de véhicules</h2>
-			</div>
-			<div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 p-4 items-center justify-center">
-				<div class="flex flex-col items-center">
-					<a href="{{ path('app_cars_achat')}}" class="flex flex-col items-center w-full h-auto">
-						<img src="{{ asset('assets/img/cars/toutes.png') }}" alt="Toutes" class="w-full h-auto max-w-xs">
-						<span class="mt-2 font-medium">Toutes</span>
-					</a>
-				</div>
-				<div class="flex flex-col items-center">
-					<a href="{{ path('app_cars_achat')}}" class="flex flex-col items-center w-full h-auto">
-						<img src="{{ asset('assets/img/cars/4x4-removebg-preview.png') }}" alt="4x4 & SUV" class="w-full h-auto max-w-xs">
-						<span class="mt-2 font-medium">4x4 & SUV</span>
-					</a>
-				</div>
-				<div class="flex flex-col items-center">
-					<a href="{{ path('app_cars_achat')}}" class="flex flex-col items-center w-full h-auto">
-						<img src="{{ asset('assets/img/cars/citadine-removebg-preview.png')}}" alt="Citadine" class="w-full h-auto max-w-xs">
-						<span class="mt-2 font-medium">Citadine</span>
-					</a>
-				</div>
-				<div class="flex flex-col items-center">
-					<a href="{{ path('app_cars_achat')}}" class="flex flex-col items-center w-full h-auto">
-						<img src="{{ asset('assets/img/cars/berline-removebg-preview.png') }}" alt="Berline" class="w-full h-auto max-w-xs">
-						<span class="mt-2 font-medium">Berline</span>
-					</a>
-				</div>
-				<div class="flex flex-col items-center">
-					<a href="{{ path('app_cars_achat')}}" class="flex flex-col items-center w-full h-auto">
-						<img src="{{ asset('assets/img/cars/monospace-removebg-preview.png') }}" alt="Monospace" class="w-full h-auto max-w-xs">
-						<span class="mt-2 font-medium">Monospace</span>
-					</a>
-				</div>
-				<div class="flex flex-col items-center">
-					<a href="{{ path('app_cars_achat')}}" class="flex flex-col items-center w-full h-auto">
-						<img src="{{ asset('assets/img/cars/break-removebg-preview.png') }}" alt="Break" class="w-full h-auto max-w-xs">
-						<span class="mt-2 font-medium">Break</span>
-					</a>
-				</div>
-				<div class="flex flex-col items-center">
-					<a href="{{ path('app_cars_achat')}}" class="flex flex-col items-center w-full h-auto">
-						<img src="{{ asset('assets/img/cars/Toyota-Yaris-Hybrid-2016-removebg-preview.png')}}" alt="Hybride" class="w-full h-auto max-w-xs">
-						<span class="mt-2 font-medium">Hybride</span>
-					</a>
-				</div>
-				<div class="flex flex-col items-center">
-					<a href="{{ path('app_cars_achat')}}" class="flex flex-col items-center w-full h-auto">
-						<img src="{{ asset('assets/img/cars/electrique-removebg-preview.png') }}" alt="Electrique" class="w-full h-auto max-w-xs">
-						<span class="mt-2 font-medium">Electrique</span>
-					</a>
-				</div>
-			</div>
-
-
-		</section>
-
-		<section id="searchCarsLink" class="py-5">
-			<div class="container mx-auto">
-				<div class="lg:flex lg:justify-between items-center text-center">
-					<div class="lg:w-1/2 lg:pr-8 mx-auto">
-						<h2 class="text-2xl lg:text-3xl font-bold mb-4">Vous recherchez la voiture parfaite ? Nous l'avons pour vous !</h2>
-					</div>
-				</div>
-				<div class="flex justify-center mt-4">
-					<a href="{{ path('app_cars_achat')}}" class="btn btn-primary bg-blue-500 text-white py-2 px-4 rounded">Cliquez ici !</a>
-				</div>
-			</div>
-		</section>
-
-
-	{% endblock %}
-
-	{% block javascripts %}{% endblock %}
+    {# CTA VENTE #}
+    <section class="bg-[#DFEBF4] py-16 md:py-24">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold mb-4 text-[#222222]">Vendez votre véhicule facilement</h2>
+        <p class="text-lg max-w-2xl mx-auto mb-10 text-[#222222]">Publiez votre annonce en quelques minutes et touchez des milliers d'acheteurs potentiels.</p>
+        <a href="{{ path('app_cars_vente') }}" class="bg-[#3093D9] text-white font-bold px-8 py-4 rounded-lg text-lg">Déposer une annonce</a>
+      </div>
+    </section>
+  </div>
+{% endblock %}
